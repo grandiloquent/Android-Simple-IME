@@ -194,4 +194,72 @@ public class Shared {
         }
         return new int[]{start, end};
     }
+
+    public static String readText(Context context) {
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData clipData = clipboardManager.getPrimaryClip();
+        if (clipData != null && clipData.getItemCount() > 0) {
+            CharSequence c = clipData.getItemAt(0).getText();
+            if (c != null)
+                return c.toString();
+        }
+        return null;
+
+    }
+    public static String substring(String string, String first, String second) {
+        int start = string.indexOf(first);
+        if (start == -1) return null;
+        start += first.length();
+        int end = string.indexOf(second, start);
+        if (end == -1) return null;
+        return string.substring(start, end);
+    }
+
+    public static String substringAfter(String string, char delimiter) {
+        int index = string.indexOf(delimiter);
+        if (index != -1) return string.substring(index + 1);
+        return string;
+    }
+
+    public static String substringAfter(String string, String delimiter) {
+        int index = string.indexOf(delimiter);
+        if (index != -1) return string.substring(index + delimiter.length());
+        return string;
+    }
+
+    public static String substringAfterLast(String string, char delimiter) {
+        int index = string.lastIndexOf(delimiter);
+        if (index != -1) return string.substring(index + 1);
+        return string;
+    }
+
+    public static String substringAfterLast(String string, String delimiter) {
+        int index = string.lastIndexOf(delimiter);
+        if (index != -1) return string.substring(index + delimiter.length());
+        return string;
+    }
+
+    public static String substringBefore(String string, char delimiter) {
+        int index = string.indexOf(delimiter);
+        if (index != -1) return string.substring(0, index);
+        return string;
+    }
+
+    public static String substringBefore(String string, String delimiter) {
+        int index = string.indexOf(delimiter);
+        if (index != -1) return string.substring(0, index);
+        return string;
+    }
+
+    public static String substringBeforeLast(String string, char delimiter) {
+        int index = string.lastIndexOf(delimiter);
+        if (index != -1) return string.substring(0, index);
+        return string;
+    }
+
+    public static String substringBeforeLast(String string, String delimiter) {
+        int index = string.lastIndexOf(delimiter);
+        if (index != -1) return string.substring(0, index);
+        return string;
+    }
 }

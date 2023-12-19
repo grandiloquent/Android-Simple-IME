@@ -172,6 +172,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.showColorsDialog(this, ic);
                 break;
             }
+            case 1012: {
+                Utils.showNotesDialog(this, ic,mDatabase);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {

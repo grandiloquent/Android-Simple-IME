@@ -152,6 +152,9 @@
             android:codes="1011"
             android:keyLabel="颜色" />
         <Key
+            android:codes="1012"
+            android:keyLabel="笔记" />
+        <Key
             android:codes="-4"
             android:keyWidth="15%p"
             android:keyEdgeFlags="right"
