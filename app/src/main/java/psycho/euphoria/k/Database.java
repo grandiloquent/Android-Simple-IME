@@ -56,6 +56,7 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public List<String> listNote() {
+
         List<String> texts = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery("SELECT title FROM note ORDER BY update_at DESC", null);
         while (cursor.moveToNext()) {
@@ -88,7 +89,17 @@ public class Database extends SQLiteOpenHelper {
         cursor.close();
         return text;
     }
-
+    public String getContent(String title) {
+        String text = null;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM note where title = ?", new String[]{
+                title
+        });
+        if (cursor.moveToNext()) {
+            text = cursor.getString(0);
+        }
+        cursor.close();
+        return text;
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }

@@ -40,7 +40,7 @@ public class Utils {
                 .setAdapter(noteAdapter, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ic.commitText(noteAdapter.getItem(i), 1);
+                        ic.commitText(database.getContent(noteAdapter.getItem(i)), 1);
                     }
                 })
                 .setPositiveButton("导入", new OnClickListener() {
