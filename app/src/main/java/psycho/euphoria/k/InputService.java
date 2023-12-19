@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputConnection;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import java.io.File;
@@ -143,11 +144,13 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1010: {
                 String[] items = mDatabase.listText().toArray(new String[0]);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.text);
+                adapter.addAll(items);
                 AlertDialog dialog = new Builder(this)
-                        .setItems(items, new OnClickListener() {
+                        .setAdapter(adapter, new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                ic.commitText(items[i], 1);
+                                ic.commitText(adapter.getItem(i), 1);
                             }
                         })
                         .setPositiveButton(android.R.string.ok, new OnClickListener() {

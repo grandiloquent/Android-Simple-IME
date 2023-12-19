@@ -30,7 +30,7 @@ public class Database extends SQLiteOpenHelper {
 
     public void insert(String text) {
         ContentValues values = new ContentValues();
-        values.put("content", text);
+        values.put("content", text.trim());
         values.put("create_at", System.currentTimeMillis());
         values.put("update_at", System.currentTimeMillis());
         getWritableDatabase().insert("text", null, values);
@@ -38,7 +38,7 @@ public class Database extends SQLiteOpenHelper {
 
     public List<String> listText() {
         List<String> texts = new ArrayList<>();
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM text ORDER BY update_at LIMIT 20", null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM text ORDER BY update_at DESC LIMIT 20", null);
         while (cursor.moveToNext()) {
             texts.add(cursor.getString(0));
         }
@@ -48,7 +48,7 @@ public class Database extends SQLiteOpenHelper {
 
     public String getText() {
         String text = null;
-        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM text ORDER BY update_at LIMIT 1", null);
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM text ORDER BY update_at DESC LIMIT 1", null);
         if(cursor.moveToNext()) {
             text=cursor.getString(0);
         }
