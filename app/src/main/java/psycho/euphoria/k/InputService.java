@@ -144,7 +144,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1010: {
                 String[] items = mDatabase.listText().toArray(new String[0]);
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.text);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.text);
                 adapter.addAll(items);
                 AlertDialog dialog = new Builder(this)
                         .setAdapter(adapter, new OnClickListener() {
@@ -162,10 +162,14 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                         .create();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
-                }else{
+                } else {
                     dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
                 }
                 dialog.show();
+                break;
+            }
+            case 1011: {
+                Utils.showColorsDialog(this, ic);
                 break;
             }
             default:

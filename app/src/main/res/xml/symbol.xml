@@ -149,10 +149,8 @@
             android:keyWidth="40%p"
             android:keyLabel="SPACE" />
         <Key
-            android:codes="46"
-            android:isRepeatable="true"
-            android:keyWidth="10%p"
-            android:keyLabel="." />
+            android:codes="1011"
+            android:keyLabel="颜色" />
         <Key
             android:codes="-4"
             android:keyWidth="15%p"
