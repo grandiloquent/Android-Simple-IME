@@ -1,18 +1,26 @@
 package psycho.euphoria.k;
 
 
+import android.app.AlertDialog;
+import android.app.AlertDialog.Builder;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.os.Build;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputConnection;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -24,10 +32,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     private KeyboardView kv;
     private Keyboard keyboard;
     private Keyboard keyboard_sym;
-    private String mCurrentString = "";
 
     private boolean caps = false;
     private final Pattern mChinese = Pattern.compile("[\\u4e00-\\u9fa5]");
+    private Database mDatabase;
 
     public static String readAssetAsString(Context context, String assetName) {
         InputStream inputStream = null;
@@ -54,8 +62,9 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     @Override
     public void onCreate() {
         super.onCreate();
-
-
+        mDatabase = new Database(this, new File(
+                getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), "text.db"
+        ).getAbsolutePath());
     }
 
     @Override
@@ -100,7 +109,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1002: {
-                Shared.copyBlock(this, ic);
+                Shared.copyBlock(this, ic, mDatabase);
                 break;
             }
             case 1003: {
@@ -112,19 +121,50 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1005: {
-                Shared.cut(this, ic);
+                Shared.cut(this, ic, mDatabase);
                 break;
             }
             case 1006: {
                 Shared.eval(this, ic);
                 break;
             }
-
             case 1007: {
                 requestHideSelf(0);
                 break;
             }
-
+            case 1008: {
+                Shared.cutBefore(this, ic, mDatabase);
+                break;
+            }
+            // https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/core/java/android/view/inputmethod/InputConnection.java
+            case 1009: {
+                Shared.cutAfter(this, ic, mDatabase);
+                break;
+            }
+            case 1010: {
+                String[] items = mDatabase.listText().toArray(new String[0]);
+                AlertDialog dialog = new Builder(this)
+                        .setItems(items, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ic.commitText(items[i], 1);
+                            }
+                        })
+                        .setPositiveButton(android.R.string.ok, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.dismiss();
+                            }
+                        })
+                        .create();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+                }else{
+                    dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+                }
+                dialog.show();
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {

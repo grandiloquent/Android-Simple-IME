@@ -70,16 +70,18 @@ public class Shared {
 
     }
 
-    public static void copyBlock(Context context, InputConnection inputConnection) {
+    public static void copyBlock(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                currentText.subSequence(points[0], points[1])
+                s
         ));
+        database.insert(s);
     }
 
     public static void comment(Context context, InputConnection inputConnection) {
@@ -113,17 +115,51 @@ public class Shared {
         inputConnection.finishComposingText();
     }
 
-    public static void cut(Context context, InputConnection inputConnection) {
+    public static void cut(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
-                currentText.subSequence(points[0], points[1])
+                s
         ));
+        database.insert(s);
         inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
+
+    public static void cutBefore(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        if (startIndex == 0) return;
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(0, startIndex).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+        inputConnection.setComposingRegion(0, startIndex);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
+
+    public static void cutAfter(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        if (startIndex + 1 == currentText.length()) return;
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(startIndex, currentText.length()).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+        inputConnection.setComposingRegion(startIndex, currentText.length());
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }

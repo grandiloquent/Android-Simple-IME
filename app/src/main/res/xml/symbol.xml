@@ -90,6 +90,15 @@
             android:codes="1003"
             android:keyLabel="注释" />
         <Key
+            android:codes="1008"
+            android:keyLabel="剪前" />
+        <Key
+            android:codes="1009"
+            android:keyLabel="剪后" />
+        <Key
+            android:codes="1010"
+            android:keyLabel="剪切板" />
+        <Key
             android:codes="1007"
             android:keyEdgeFlags="right"
             android:keyLabel="隐藏" />
@@ -98,10 +107,9 @@
     </Row>
     <Row>
         <Key
-            android:codes="-1"
-            android:keyWidth="15%p"
-            android:keyEdgeFlags="left"
-            android:keyIcon="@drawable/arrow" />
+            android:codes="59"
+            android:keyLabel=";"
+            android:keyEdgeFlags="left"/>
         <Key
             android:codes="47"
             android:keyLabel="/" />
@@ -134,10 +142,7 @@
             android:keyWidth="20%p"
             android:keyEdgeFlags="left"
             android:keyLabel="ABC" />
-        <Key
-            android:codes="47"
-            android:keyWidth="10%p"
-            android:keyLabel="/" />
+
         <Key
             android:codes="32"
             android:isRepeatable="true"
