@@ -305,12 +305,29 @@ public class Shared {
                 start--;
             }
         }
-
         if (!Character.isWhitespace(s.charAt(end))) {
             while (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
                 end++;
             }
         }
         return new int[]{start, end};
+    }
+
+    public static boolean isWhiteSpace(String s) {
+        if (s == null || s.length() == 0) return true;
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isWhitespace(s.charAt(i))) return false;
+        }
+        return true;
+    }
+
+    public static String removeEmptyLines(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] lines = s.split("\n");
+        for (String ss : lines) {
+            if (isWhiteSpace(ss)) continue;
+            stringBuilder.append(ss).append('\n');
+        }
+        return stringBuilder.toString();
     }
 }

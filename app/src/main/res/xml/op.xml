@@ -59,9 +59,15 @@
         <Key
             android:codes="1020"
             android:keyLabel="剪字" />
+
         <Key
             android:codes="1021"
             android:keyLabel="搜索" />
+
+        <Key
+            android:codes="1022"
+            android:keyLabel="空行" />
+
 
 
 

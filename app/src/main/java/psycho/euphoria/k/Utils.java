@@ -246,4 +246,15 @@ public class Utils {
 
 
     }
+
+    public static void removeEmptyLines(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        if (currentText == null && currentText.length() == 0)
+            return;
+        String s = Shared.removeEmptyLines(currentText.toString());
+        inputConnection.setComposingRegion(0, currentText.length());
+        inputConnection.setComposingText(s, 1);
+        inputConnection.finishComposingText();
+    }
 }

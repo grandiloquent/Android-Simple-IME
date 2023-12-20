@@ -216,6 +216,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.replaceBlock(this, ic);
                 break;
             }
+            case 1022: {
+                Utils.removeEmptyLines(this, ic);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {
