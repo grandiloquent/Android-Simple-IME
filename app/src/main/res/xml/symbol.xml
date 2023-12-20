@@ -7,8 +7,8 @@
 
     <Row>
         <Key
-            android:keyEdgeFlags="left"
             android:codes="34"
+            android:keyEdgeFlags="left"
             android:keyLabel="&quot;" />
         <Key
             android:codes="59"
@@ -30,17 +30,85 @@
             android:codes="35"
             android:keyEdgeFlags="left"
             android:keyLabel="#" />
+
+        <Key
+            android:codes="42"
+            android:keyLabel="*" />
+        <Key
+            android:codes="92"
+            android:keyLabel="\\" />
+        <Key
+            android:codes="63"
+            android:keyLabel="?" />
+        <Key
+            android:codes="36"
+            android:keyEdgeFlags="right"
+            android:keyLabel="$" />
+
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="96"
+            android:keyEdgeFlags="left"
+            android:keyLabel="`" />
+
         <Key
             android:codes="37"
             android:keyLabel="%" />
+        <Key
+            android:codes="91"
+            android:keyLabel="[" />
+        <Key
+            android:codes="93"
+            android:keyLabel="]" />
+        <Key
+            android:codes="123"
+            android:keyLabel="{" />
+        <Key
+            android:codes="125"
+            android:keyEdgeFlags="right"
+            android:keyLabel="}" />
+
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="64"
+            android:keyEdgeFlags="left"
+            android:keyLabel="@" />
+        <Key
+            android:codes="8592"
+            android:keyLabel="←" />
+        <Key
+            android:codes="8593"
+            android:keyLabel="↑" />
+        <Key
+            android:codes="8594"
+            android:keyLabel="→" />
+        <Key
+            android:codes="8595"
+            android:keyEdgeFlags="right"
+            android:keyLabel="↓" />
+    </Row>
+    <Row>
+
+        <Key
+            android:codes="8721"
+            android:keyEdgeFlags="left"
+            android:keyLabel="∑" />
+        <Key
+            android:codes="960"
+            android:keyEdgeFlags="right"
+            android:keyLabel="π" />
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
 
         <Key
             android:codes="1001"
-            android:keyEdgeFlags="left"
             android:keyWidth="10%p"
+            android:keyEdgeFlags="left"
             android:keyLabel="英文" />
         <Key
             android:codes="1018"
