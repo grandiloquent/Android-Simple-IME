@@ -33,6 +33,8 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     private KeyboardView kv;
     private Keyboard keyboard;
     private Keyboard keyboard_sym;
+    private Keyboard keyboard_num;
+    private Keyboard keyboard_op;
 
     private boolean caps = false;
     private final Pattern mChinese = Pattern.compile("[\\u4e00-\\u9fa5]");
@@ -73,7 +75,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
         kv = (KeyboardView) getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.qwerty);
         keyboard_sym = new Keyboard(this, R.xml.symbol);
-        kv.setKeyboard(keyboard_sym);
+        keyboard_num = new Keyboard(this, R.xml.num);
+        keyboard_op = new Keyboard(this, R.xml.op);
+
+        kv.setKeyboard(keyboard_op);
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
@@ -173,7 +178,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1012: {
-                Utils.showNotesDialog(this, ic,mDatabase);
+                Utils.showNotesDialog(this, ic, mDatabase);
                 break;
             }
             case 1013: {
@@ -181,15 +186,23 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1014: {
-                Utils.saveBefore(this, ic,mDatabase);
+                Utils.saveBefore(this, ic, mDatabase);
                 break;
             }
             case 1015: {
-                Utils.showWordDialog(this, ic,mDatabase);
+                Utils.showWordDialog(this, ic, mDatabase);
                 break;
             }
             case 1016: {
                 Utils.formatTime(this, ic);
+                break;
+            }
+            case 1017: {
+                kv.setKeyboard(keyboard_op);
+                break;
+            }
+            case 1018: {
+                kv.setKeyboard(keyboard_num);
                 break;
             }
             default:
