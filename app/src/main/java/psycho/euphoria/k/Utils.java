@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.WindowManager;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
@@ -163,6 +164,7 @@ public class Utils {
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getLine(currentText.toString(), startIndex, endIndex);
         String block = currentText.subSequence(points[0], points[1]).toString().trim();
+        Log.e("B5aOx2", String.format("formatTime, %s", block));
         if (TextUtils.isEmpty(block)) {
             block = currentText.subSequence(0, startIndex).toString();
             ic.setComposingRegion(0, startIndex);
