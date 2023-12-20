@@ -21,8 +21,10 @@ import android.view.inputmethod.InputConnection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static psycho.euphoria.k.Shared.getContinueLines;
 import static psycho.euphoria.k.Shared.getLine;
 
 public class Utils {
@@ -162,7 +164,7 @@ public class Utils {
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = getLine(currentText.toString(), startIndex, endIndex);
+        int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
         String block = currentText.subSequence(points[0], points[1]).toString().trim();
         if (TextUtils.isEmpty(block)) {
             block = currentText.subSequence(0, startIndex).toString();
@@ -170,26 +172,20 @@ public class Utils {
         } else {
             ic.setComposingRegion(points[0], points[1]);
         }
-
         String value = "0.0001s";
-        if (block.contains(value )) {
+        if (block.contains(value)) {
             value = ".5s";
+        }
+        Pattern p1 = Pattern.compile("^[\\d.]+\\s+");
+        Matcher matcher = p1.matcher(block);
+        if (matcher.find()) {
+            value = matcher.group().trim() + "s";
         }
         String finalValue = value;
         Pattern pattern = Pattern.compile("(?<=dur=\")[^\"]+(?=\")");
-        block = Shared.replace(pattern, new Function<MatchResult, String>() {
-            @Override
-            public String apply(MatchResult matchResult) {
-                return finalValue;
-            }
-        }, block);
+        block = Shared.replace(pattern, matchResult -> finalValue, block);
         pattern = Pattern.compile("(?<=begin=\")[^\"]+(?=\")");
-        block = Shared.replace(pattern, new Function<MatchResult, String>() {
-            @Override
-            public String apply(MatchResult matchResult) {
-                return matchResult.group().replaceAll("[\\d.]+s", finalValue);
-            }
-        }, block);
+        block = Shared.replace(pattern, matchResult -> matchResult.group().replaceAll("[\\d.]+s", finalValue), block);
         ic.setComposingText(block, 1);
         ic.finishComposingText();
 
