@@ -176,6 +176,22 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.showNotesDialog(this, ic,mDatabase);
                 break;
             }
+            case 1013: {
+                Utils.getIds(this, ic);
+                break;
+            }
+            case 1014: {
+                Utils.saveBefore(this, ic,mDatabase);
+                break;
+            }
+            case 1015: {
+                Utils.showWordDialog(this, ic,mDatabase);
+                break;
+            }
+            case 1016: {
+                Utils.formatTime(this, ic);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {

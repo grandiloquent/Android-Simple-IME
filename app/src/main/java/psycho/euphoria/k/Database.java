@@ -56,9 +56,18 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public List<String> listNote() {
-
         List<String> texts = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery("SELECT title FROM note ORDER BY update_at DESC", null);
+        while (cursor.moveToNext()) {
+            texts.add(cursor.getString(0));
+        }
+        cursor.close();
+        return texts;
+    }
+
+    public List<String> listWord() {
+        List<String> texts = new ArrayList<>();
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT title FROM word ORDER BY update_at DESC", null);
         while (cursor.moveToNext()) {
             texts.add(cursor.getString(0));
         }
@@ -74,10 +83,44 @@ public class Database extends SQLiteOpenHelper {
         values.put("update_at", System.currentTimeMillis());
         getWritableDatabase().insert("note", null, values);
     }
-    public void delete(String title){
-        getWritableDatabase().delete("note","title = ?",new String[]{
+
+    public void insertWord(String title, String content) {
+
+        ContentValues values = new ContentValues();
+        values.put("title", title);
+        values.put("content", content);
+        values.put("create_at", System.currentTimeMillis());
+        values.put("update_at", System.currentTimeMillis());
+        getWritableDatabase().insert("word", null, values);
+    }
+
+    public void delete(String title) {
+        getWritableDatabase().delete("note", "title = ?", new String[]{
                 title
         });
+    }
+
+    public void removeALlWord() {
+       getWritableDatabase().delete("word",null,null);
+    }
+
+    public String getAllWord() {
+        getWritableDatabase().execSQL("CREATE TABLE if not EXISTS \"word\" (\n" +
+                "\t\"id\"\tINTEGER NOT NULL UNIQUE,\n" +
+                "\t\"title\"\tUNIQUE,\n" +
+                "\t\"content\"\tTEXT,\n" +
+                "\t\"create_at\"\tINTEGER,\n" +
+                "\t\"update_at\"\tINTEGER,\n" +
+                "\tPRIMARY KEY(\"id\" AUTOINCREMENT)\n" +
+                ");");
+        StringBuilder sb = new StringBuilder();
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM word ORDER BY update_at DESC", null);
+        while (cursor.moveToNext()) {
+            sb.append(cursor.getString(0))
+                    .append("\n");
+        }
+        cursor.close();
+        return sb.toString();
     }
 
     public String getText() {
@@ -89,9 +132,21 @@ public class Database extends SQLiteOpenHelper {
         cursor.close();
         return text;
     }
+
     public String getContent(String title) {
         String text = null;
         Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM note where title = ?", new String[]{
+                title
+        });
+        if (cursor.moveToNext()) {
+            text = cursor.getString(0);
+        }
+        cursor.close();
+        return text;
+    }
+    public String getWord(String title) {
+        String text = null;
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT content FROM word where title = ?", new String[]{
                 title
         });
         if (cursor.moveToNext()) {

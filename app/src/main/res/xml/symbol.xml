@@ -108,8 +108,8 @@
     <Row>
         <Key
             android:codes="59"
-            android:keyLabel=";"
-            android:keyEdgeFlags="left"/>
+            android:keyEdgeFlags="left"
+            android:keyLabel=";" />
         <Key
             android:codes="47"
             android:keyLabel="/" />
@@ -129,6 +129,10 @@
             android:codes="94"
             android:keyLabel="^" />
         <Key
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyLabel="空格" />
+        <Key
             android:codes="-5"
             android:isRepeatable="true"
             android:keyWidth="15%p"
@@ -139,21 +143,28 @@
     <Row android:rowEdgeFlags="bottom">
         <Key
             android:codes="1001"
-            android:keyWidth="20%p"
             android:keyEdgeFlags="left"
-            android:keyLabel="ABC" />
+            android:keyLabel="切换" />
 
-        <Key
-            android:codes="32"
-            android:isRepeatable="true"
-            android:keyWidth="40%p"
-            android:keyLabel="SPACE" />
         <Key
             android:codes="1011"
             android:keyLabel="颜色" />
         <Key
             android:codes="1012"
             android:keyLabel="笔记" />
+
+        <Key
+            android:codes="1013"
+            android:keyLabel="标识" />
+        <Key
+            android:codes="1014"
+            android:keyLabel="导入" />
+        <Key
+            android:codes="1015"
+            android:keyLabel="代码" />
+        <Key
+            android:codes="1016"
+            android:keyLabel="时间" />
         <Key
             android:codes="-4"
             android:keyWidth="15%p"
