@@ -77,7 +77,6 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
         keyboard_sym = new Keyboard(this, R.xml.symbol);
         keyboard_num = new Keyboard(this, R.xml.num);
         keyboard_op = new Keyboard(this, R.xml.op);
-
         kv.setKeyboard(keyboard_op);
         kv.setOnKeyboardActionListener(this);
         return kv;
@@ -203,6 +202,18 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1018: {
                 kv.setKeyboard(keyboard_num);
+                break;
+            }
+            case 1019: {
+                Utils.copyString(this, ic, mDatabase);
+                break;
+            }
+            case 1020: {
+                Utils.cutString(this, ic, mDatabase);
+                break;
+            }
+            case 1021: {
+                Utils.replaceBlock(this, ic);
                 break;
             }
             default:

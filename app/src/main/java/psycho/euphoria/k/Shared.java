@@ -298,4 +298,19 @@ public class Shared {
         if (index != -1) return string.substring(0, index);
         return string;
     }
+
+    public static int[] getString(String s, int start, int end) {
+        if (!Character.isWhitespace(s.charAt(start))) {
+            while (start - 1 > -1 && !Character.isWhitespace(s.charAt(start - 1))) {
+                start--;
+            }
+        }
+
+        if (!Character.isWhitespace(s.charAt(end))) {
+            while (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
+                end++;
+            }
+        }
+        return new int[]{start, end};
+    }
 }

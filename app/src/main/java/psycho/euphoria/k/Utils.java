@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 import static psycho.euphoria.k.Shared.getContinueLines;
 import static psycho.euphoria.k.Shared.getLine;
+import static psycho.euphoria.k.Shared.getString;
 
 public class Utils {
     public static void getIds(Context context, InputConnection inputConnection) {
@@ -188,6 +189,61 @@ public class Utils {
         block = Shared.replace(pattern, matchResult -> matchResult.group().replaceAll("[\\d.]+s", finalValue), block);
         ic.setComposingText(block, 1);
         ic.finishComposingText();
+
+    }
+
+    public static void copyString(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getString(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+    }
+
+    public static void cutString(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getString(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
+
+    public static void replaceBlock(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getContinueLines(currentText.toString(), startIndex, endIndex);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        s = s.trim();
+        String[] f = Shared.substringBefore(s, "\n").split(" ");
+        if (f.length < 2) {
+            return;
+        }
+        String b = Shared.substringAfter(s, "\n");
+        try {
+            b = b.replaceAll(f[0], f[1]);
+        } catch (Exception e) {
+        }
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText(b, 1);
+        inputConnection.finishComposingText();
+
 
     }
 }

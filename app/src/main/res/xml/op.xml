@@ -3,8 +3,7 @@
     android:horizontalGap="0px"
     android:keyWidth="20%p"
     android:keyHeight="48dp"
-    android:verticalGap="0px"
-    >
+    android:verticalGap="0px">
     <Row>
         <Key
             android:codes="1002"
@@ -27,12 +26,12 @@
     </Row>
 
 
-    <Row >
+    <Row>
 
 
         <Key
-            android:keyEdgeFlags="left"
             android:codes="1010"
+            android:keyEdgeFlags="left"
             android:keyLabel="剪切板" />
         <Key
             android:codes="1012"
@@ -49,6 +48,22 @@
             android:codes="1016"
             android:keyEdgeFlags="right"
             android:keyLabel="时间" />
+
+    </Row>
+    <Row>
+
+        <Key
+            android:codes="1019"
+            android:keyEdgeFlags="left"
+            android:keyLabel="复字" />
+        <Key
+            android:codes="1020"
+            android:keyLabel="剪字" />
+        <Key
+            android:codes="1021"
+            android:keyLabel="搜索" />
+
+
 
     </Row>
     <Row>
@@ -77,8 +92,8 @@
 
         <Key
             android:codes="1001"
-            android:keyEdgeFlags="left"
             android:keyWidth="10%p"
+            android:keyEdgeFlags="left"
             android:keyLabel="英文" />
         <Key
             android:codes="1000"
