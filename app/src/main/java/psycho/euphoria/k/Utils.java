@@ -164,30 +164,30 @@ public class Utils {
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getLine(currentText.toString(), startIndex, endIndex);
         String block = currentText.subSequence(points[0], points[1]).toString().trim();
-        Log.e("B5aOx2", String.format("formatTime, %s", block));
         if (TextUtils.isEmpty(block)) {
             block = currentText.subSequence(0, startIndex).toString();
             ic.setComposingRegion(0, startIndex);
         } else {
             ic.setComposingRegion(points[0], points[1]);
         }
-        String value = "0.0001";
-        if (block.contains(value + "s")) {
-            value = "1s";
+
+        String value = "0.0001s";
+        if (block.contains(value )) {
+            value = ".5s";
         }
         String finalValue = value;
         Pattern pattern = Pattern.compile("(?<=dur=\")[^\"]+(?=\")");
-        Shared.replace(pattern, new Function<MatchResult, String>() {
+        block = Shared.replace(pattern, new Function<MatchResult, String>() {
             @Override
             public String apply(MatchResult matchResult) {
                 return finalValue;
             }
         }, block);
         pattern = Pattern.compile("(?<=begin=\")[^\"]+(?=\")");
-        Shared.replace(pattern, new Function<MatchResult, String>() {
+        block = Shared.replace(pattern, new Function<MatchResult, String>() {
             @Override
             public String apply(MatchResult matchResult) {
-                return matchResult.group().replaceAll("[\\d.]+", finalValue);
+                return matchResult.group().replaceAll("[\\d.]+s", finalValue);
             }
         }, block);
         ic.setComposingText(block, 1);
