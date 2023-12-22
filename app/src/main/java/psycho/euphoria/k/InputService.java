@@ -228,6 +228,11 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 ic.commitText("{}", 1);
                 break;
             }
+
+            case 1025: {
+                ic.commitText("let x = 0;", 1);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {
