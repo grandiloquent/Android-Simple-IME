@@ -21,6 +21,18 @@
         <Key android:codes="48" android:keyLabel="0" android:keyEdgeFlags="right"/>
     </Row>
     <Row>
+        <Key android:codes="1023" android:keyLabel="()"  android:keyEdgeFlags="left"/>
+        <Key android:codes="61" android:keyLabel="="/>
+        <Key android:codes="59" android:keyLabel=";"/>
+        <Key android:codes="43" android:keyLabel="+"/>
+        <Key android:codes="45" android:keyLabel="-"/>
+        <Key android:codes="42" android:keyLabel="*"/>
+        <Key android:codes="37" android:keyLabel="%"/>
+        <Key android:codes="47" android:keyLabel="/"/>
+        <Key android:codes="1024" android:keyLabel="{}"/>
+        <Key android:codes="1007" android:keyLabel="隐藏" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
         <Key android:codes="113" android:keyLabel="q" android:keyEdgeFlags="left"/>
         <Key android:codes="119" android:keyLabel="w"/>
         <Key android:codes="101" android:keyLabel="e"/>

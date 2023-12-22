@@ -220,6 +220,14 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.removeEmptyLines(this, ic);
                 break;
             }
+            case 1023: {
+                ic.commitText("()", 1);
+                break;
+            }
+            case 1024: {
+                ic.commitText("{}", 1);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {
