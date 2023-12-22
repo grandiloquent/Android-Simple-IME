@@ -127,6 +127,9 @@
         <Key
             android:codes="1004"
             android:keyLabel="粘贴" />
+        <Key
+            android:codes="1030"
+            android:keyLabel="切换" />
     </Row>
     <Row>
         <Key

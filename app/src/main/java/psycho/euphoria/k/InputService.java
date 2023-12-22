@@ -18,6 +18,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -249,6 +250,12 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.cutLine(this,ic,mDatabase);
 
                 break;
+            }
+            case 1030: {
+                ((InputMethodManager)  getSystemService(Context.INPUT_METHOD_SERVICE))
+                        .showInputMethodPicker();
+                break;
+
             }
 
             default:

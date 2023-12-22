@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
 //        InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
 //        final IBinder token = this.getWindow().getAttributes().token;
 //        imm.setInputMethod(token, "psycho.euphoria.k/.InputService");
+        //getSystemService(InputService.class).switchInputMethod("psycho.euphoria.k/.InputService");
+
     }
 
     private void openOverlaySettings() {
