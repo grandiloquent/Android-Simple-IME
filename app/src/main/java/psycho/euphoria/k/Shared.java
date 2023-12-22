@@ -214,6 +214,28 @@ public class Shared {
         return new int[]{start, end};
     }
 
+    public static int[] getString(String s, int start, int end) {
+        if (!Character.isWhitespace(s.charAt(start))) {
+            while (start - 1 > -1 && !Character.isWhitespace(s.charAt(start - 1))) {
+                start--;
+            }
+        }
+        if (!Character.isWhitespace(s.charAt(end))) {
+            while (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
+                end++;
+            }
+        }
+        return new int[]{start, end};
+    }
+
+    public static boolean isWhiteSpace(String s) {
+        if (s == null || s.length() == 0) return true;
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isWhitespace(s.charAt(i))) return false;
+        }
+        return true;
+    }
+
     public static void paste(Context context, InputConnection inputConnection) {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         inputConnection.setComposingText(clipboardManager.getText(), 1);
@@ -230,6 +252,16 @@ public class Shared {
         }
         return null;
 
+    }
+
+    public static String removeEmptyLines(String s) {
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] lines = s.split("\n");
+        for (String ss : lines) {
+            if (isWhiteSpace(ss)) continue;
+            stringBuilder.append(ss).append('\n');
+        }
+        return stringBuilder.toString();
     }
 
     public static String replace(Pattern pattern, Function<MatchResult, String> callback, CharSequence subject) {
@@ -297,37 +329,5 @@ public class Shared {
         int index = string.lastIndexOf(delimiter);
         if (index != -1) return string.substring(0, index);
         return string;
-    }
-
-    public static int[] getString(String s, int start, int end) {
-        if (!Character.isWhitespace(s.charAt(start))) {
-            while (start - 1 > -1 && !Character.isWhitespace(s.charAt(start - 1))) {
-                start--;
-            }
-        }
-        if (!Character.isWhitespace(s.charAt(end))) {
-            while (end < s.length() && !Character.isWhitespace(s.charAt(end))) {
-                end++;
-            }
-        }
-        return new int[]{start, end};
-    }
-
-    public static boolean isWhiteSpace(String s) {
-        if (s == null || s.length() == 0) return true;
-        for (int i = 0; i < s.length(); i++) {
-            if (!Character.isWhitespace(s.charAt(i))) return false;
-        }
-        return true;
-    }
-
-    public static String removeEmptyLines(String s) {
-        StringBuilder stringBuilder = new StringBuilder();
-        String[] lines = s.split("\n");
-        for (String ss : lines) {
-            if (isWhiteSpace(ss)) continue;
-            stringBuilder.append(ss).append('\n');
-        }
-        return stringBuilder.toString();
     }
 }

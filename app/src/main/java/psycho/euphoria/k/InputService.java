@@ -32,9 +32,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
 
     private KeyboardView kv;
     private Keyboard keyboard;
-    private Keyboard keyboard_sym;
-    private Keyboard keyboard_num;
     private Keyboard keyboard_op;
+//
+//    private Keyboard keyboard_sym;
+//    private Keyboard keyboard_num;
 
     private boolean caps = false;
     private final Pattern mChinese = Pattern.compile("[\\u4e00-\\u9fa5]");
@@ -74,8 +75,8 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     public View onCreateInputView() {
         kv = (KeyboardView) getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.qwerty);
-        keyboard_sym = new Keyboard(this, R.xml.symbol);
-        keyboard_num = new Keyboard(this, R.xml.num);
+//        keyboard_sym = new Keyboard(this, R.xml.symbol);
+//        keyboard_num = new Keyboard(this, R.xml.num);
         keyboard_op = new Keyboard(this, R.xml.op);
         kv.setKeyboard(keyboard_op);
         kv.setOnKeyboardActionListener(this);
@@ -105,10 +106,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
-            case 1000: {
-                kv.setKeyboard(keyboard_sym);
-                break;
-            }
+//            case 1000: {
+//                kv.setKeyboard(keyboard_sym);
+//                break;
+//            }
             case 1001: {
                 kv.setKeyboard(keyboard);
                 break;
@@ -201,7 +202,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1018: {
-                kv.setKeyboard(keyboard_num);
+                kv.setKeyboard(keyboard_op);
                 break;
             }
             case 1019: {
@@ -228,11 +229,28 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 ic.commitText("{}", 1);
                 break;
             }
-
             case 1025: {
                 ic.commitText("let x = 0;", 1);
                 break;
             }
+            case 1026: {
+                ic.commitText("\"\"", 1);
+                break;
+            }
+            case 1027: {
+                ic.commitText("''", 1);
+                break;
+            }
+            case 1028: {
+                Utils.copyLine(this,ic,mDatabase);
+                break;
+            }
+            case 1029: {
+                Utils.cutLine(this,ic,mDatabase);
+
+                break;
+            }
+
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {

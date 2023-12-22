@@ -29,6 +29,69 @@ import static psycho.euphoria.k.Shared.getLine;
 import static psycho.euphoria.k.Shared.getString;
 
 public class Utils {
+    public static void copyString(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getString(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+    }
+
+    public static void cutString(Context context, InputConnection inputConnection, Database database) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getString(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        database.insert(s);
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
+
+    public static void formatTime(Context context, InputConnection ic) {
+        ExtractedText extractedText = ic.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
+        if (TextUtils.isEmpty(block)) {
+            block = currentText.subSequence(0, startIndex).toString();
+            ic.setComposingRegion(0, startIndex);
+        } else {
+            ic.setComposingRegion(points[0], points[1]);
+        }
+        String value = "0.0001s";
+        if (block.contains(value)) {
+            value = ".5s";
+        }
+        Pattern p1 = Pattern.compile("^[\\d.]+\\s+");
+        Matcher matcher = p1.matcher(block);
+        if (matcher.find()) {
+            value = matcher.group().trim() + "s";
+        }
+        String finalValue = value;
+        Pattern pattern = Pattern.compile("(?<=dur=\")[^\"]+(?=\")");
+        block = Shared.replace(pattern, matchResult -> finalValue, block);
+        pattern = Pattern.compile("(?<=begin=\")[^\"]+(?=\")");
+        block = Shared.replace(pattern, matchResult -> matchResult.group().replaceAll("[\\d.]+s", finalValue), block);
+        ic.setComposingText(block, 1);
+        ic.finishComposingText();
+
+    }
+
     public static void getIds(Context context, InputConnection inputConnection) {
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
         List<String> ids = Shared.collectIds(currentText.toString());
@@ -37,6 +100,41 @@ public class Utils {
             sb.append(s).append("\n");
         }
         inputConnection.commitText(sb.toString(), 1);
+    }
+
+    public static void removeEmptyLines(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        if (currentText == null && currentText.length() == 0)
+            return;
+        String s = Shared.removeEmptyLines(currentText.toString());
+        inputConnection.setComposingRegion(0, currentText.length());
+        inputConnection.setComposingText(s, 1);
+        inputConnection.finishComposingText();
+    }
+
+    public static void replaceBlock(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getContinueLines(currentText.toString(), startIndex, endIndex);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        s = s.trim();
+        String[] f = Shared.substringBefore(s, "\n").split(" ");
+        if (f.length < 2) {
+            return;
+        }
+        String b = Shared.substringAfter(s, "\n");
+        try {
+            b = b.replaceAll(f[0], f[1]);
+        } catch (Exception e) {
+        }
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText(b, 1);
+        inputConnection.finishComposingText();
+
+
     }
 
     public static void saveBefore(Context context, InputConnection inputConnection, Database database) {
@@ -160,44 +258,37 @@ public class Utils {
         dialog.show();
     }
 
-    public static void formatTime(Context context, InputConnection ic) {
-        ExtractedText extractedText = ic.getExtractedText(new ExtractedTextRequest(), 0);
-        CharSequence currentText = extractedText.text;
+    public static void comment(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
-        String block = currentText.subSequence(points[0], points[1]).toString().trim();
-        if (TextUtils.isEmpty(block)) {
-            block = currentText.subSequence(0, startIndex).toString();
-            ic.setComposingRegion(0, startIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString();
+        if (block.startsWith("<!--")) {
+            block = block.substring("<!--".length());
+            if (block.endsWith("-->")) {
+                block = block.substring(0, block.length() - "<!--".length() + 1);
+            }
         } else {
-            ic.setComposingRegion(points[0], points[1]);
+            block = "<!--" + block + "-->";
         }
-        String value = "0.0001s";
-        if (block.contains(value)) {
-            value = ".5s";
+        if (VERSION.SDK_INT >= VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            inputConnection.replaceText(points[0], points[1], block,
+                    startIndex + block.length(), null);
+        } else {
+            inputConnection.setComposingRegion(points[0], points[1]);
+            inputConnection.setComposingText(block, 1);
+            inputConnection.finishComposingText();
         }
-        Pattern p1 = Pattern.compile("^[\\d.]+\\s+");
-        Matcher matcher = p1.matcher(block);
-        if (matcher.find()) {
-            value = matcher.group().trim() + "s";
-        }
-        String finalValue = value;
-        Pattern pattern = Pattern.compile("(?<=dur=\")[^\"]+(?=\")");
-        block = Shared.replace(pattern, matchResult -> finalValue, block);
-        pattern = Pattern.compile("(?<=begin=\")[^\"]+(?=\")");
-        block = Shared.replace(pattern, matchResult -> matchResult.group().replaceAll("[\\d.]+s", finalValue), block);
-        ic.setComposingText(block, 1);
-        ic.finishComposingText();
-
     }
 
-    public static void copyString(Context context, InputConnection inputConnection, Database database) {
+    public static void copyLine(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = Shared.getString(currentText.toString(), startIndex, endIndex);
+        int[] points = getLine(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
@@ -206,12 +297,12 @@ public class Utils {
         database.insert(s);
     }
 
-    public static void cutString(Context context, InputConnection inputConnection, Database database) {
+    public static void cutLine(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = getString(currentText.toString(), startIndex, endIndex);
+        int[] points = getLine(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
@@ -223,38 +314,4 @@ public class Utils {
         inputConnection.finishComposingText();
     }
 
-    public static void replaceBlock(Context context, InputConnection inputConnection) {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
-        CharSequence currentText = extractedText.text;
-        int startIndex = extractedText.startOffset + extractedText.selectionStart;
-        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = Shared.getContinueLines(currentText.toString(), startIndex, endIndex);
-        String s = currentText.subSequence(points[0], points[1]).toString();
-        s = s.trim();
-        String[] f = Shared.substringBefore(s, "\n").split(" ");
-        if (f.length < 2) {
-            return;
-        }
-        String b = Shared.substringAfter(s, "\n");
-        try {
-            b = b.replaceAll(f[0], f[1]);
-        } catch (Exception e) {
-        }
-        inputConnection.setComposingRegion(points[0], points[1]);
-        inputConnection.setComposingText(b, 1);
-        inputConnection.finishComposingText();
-
-
-    }
-
-    public static void removeEmptyLines(Context context, InputConnection inputConnection) {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
-        CharSequence currentText = extractedText.text;
-        if (currentText == null && currentText.length() == 0)
-            return;
-        String s = Shared.removeEmptyLines(currentText.toString());
-        inputConnection.setComposingRegion(0, currentText.length());
-        inputConnection.setComposingText(s, 1);
-        inputConnection.finishComposingText();
-    }
 }
