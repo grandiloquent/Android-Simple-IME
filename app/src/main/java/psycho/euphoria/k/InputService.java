@@ -243,21 +243,23 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1028: {
-                Utils.copyLine(this,ic,mDatabase);
+                Utils.copyLine(this, ic, mDatabase);
                 break;
             }
             case 1029: {
-                Utils.cutLine(this,ic,mDatabase);
-
+                Utils.cutLine(this, ic, mDatabase);
                 break;
             }
             case 1030: {
-                ((InputMethodManager)  getSystemService(Context.INPUT_METHOD_SERVICE))
+                ((InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE))
                         .showInputMethodPicker();
                 break;
 
             }
-
+            case 1031: {
+                Utils.commentJavaScript(this, ic);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {

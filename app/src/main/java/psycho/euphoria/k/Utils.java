@@ -122,8 +122,11 @@ public class Utils {
         String s = currentText.subSequence(points[0], points[1]).toString();
         s = s.trim();
         String[] f = Shared.substringBefore(s, "\n").split(" ");
-        if (f.length < 2) {
+        if (f.length < 1) {
             return;
+        }
+        if (f.length == 1) {
+            f = new String[]{f[0], ""};
         }
         String b = Shared.substringAfter(s, "\n");
         try {
@@ -313,5 +316,31 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+
+    public static void commentJavaScript(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString();
+        if (block.startsWith("/*")) {
+            block = block.substring("/*".length());
+            if (block.endsWith("*/")) {
+                block = block.substring(0, block.length() - "*/".length());
+            }
+        } else {
+            block = "/*" + block + "*/";
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            inputConnection.replaceText(points[0], points[1], block,
+                    startIndex + block.length(), null);
+        } else {
+            inputConnection.setComposingRegion(points[0], points[1]);
+            inputConnection.setComposingText(block, 1);
+            inputConnection.finishComposingText();
+        }
+    }
+
 
 }

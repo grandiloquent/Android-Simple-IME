@@ -119,6 +119,9 @@
             android:codes="1027"
             android:keyLabel="'" />
         <Key
+            android:codes="92"
+            android:keyLabel="\\" />
+        <Key
             android:codes="1028"
             android:keyLabel="复行" />
         <Key
@@ -127,6 +130,12 @@
         <Key
             android:codes="1004"
             android:keyLabel="粘贴" />
+        <Key
+            android:codes="1021"
+            android:keyLabel="搜索" />
+        <Key
+            android:codes="1031"
+            android:keyLabel="评注" />
         <Key
             android:codes="1030"
             android:keyLabel="切换" />
