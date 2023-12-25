@@ -128,11 +128,13 @@ public class Utils {
         if (f.length == 1) {
             f = new String[]{f[0], ""};
         }
+
         String b = Shared.substringAfter(s, "\n");
         try {
             b = b.replaceAll(f[0], f[1]);
         } catch (Exception e) {
         }
+
         inputConnection.setComposingRegion(points[0], points[1]);
         inputConnection.setComposingText(b, 1);
         inputConnection.finishComposingText();
@@ -324,6 +326,7 @@ public class Utils {
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
         String block = currentText.subSequence(points[0], points[1]).toString();
+        Log.e("B5aOx2", String.format("commentJavaScript, %s", block));
         if (block.startsWith("/*")) {
             block = block.substring("/*".length());
             if (block.endsWith("*/")) {
