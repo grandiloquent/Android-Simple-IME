@@ -34,10 +34,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     private KeyboardView kv;
     private Keyboard keyboard;
     private Keyboard keyboard_op;
-//
+    //
 //    private Keyboard keyboard_sym;
 //    private Keyboard keyboard_num;
-
+    private Keyboard keyboard_trans;
     private boolean caps = false;
     private Database mDatabase;
 
@@ -77,6 +77,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
         keyboard = new Keyboard(this, R.xml.qwerty);
 //        keyboard_sym = new Keyboard(this, R.xml.symbol);
 //        keyboard_num = new Keyboard(this, R.xml.num);
+        keyboard_trans = new Keyboard(this, R.xml.trans);
         keyboard_op = new Keyboard(this, R.xml.op);
         kv.setKeyboard(keyboard_op);
         kv.setOnKeyboardActionListener(this);
@@ -202,7 +203,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1018: {
-                kv.setKeyboard(keyboard_op);
+                kv.setKeyboard(keyboard_trans);
                 break;
             }
             case 1019: {

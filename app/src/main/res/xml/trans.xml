@@ -1,0 +1,41 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:horizontalGap="0px"
+    android:keyWidth="20%p"
+    android:keyHeight="48dp"
+    android:verticalGap="0px">
+    <Row>
+        <Key
+            android:codes="1032"
+            android:keyWidth="100%p"
+            android:keyLabel="翻译" />
+    </Row>
+
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key
+            android:codes="1001"
+            android:keyEdgeFlags="left"
+            android:keyWidth="10%p"
+            android:keyLabel="英文" />
+
+        <Key
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyWidth="30%p"
+            android:keyLabel="空格" />
+        <Key
+            android:codes="-4"
+            android:keyWidth="30%p"
+
+            android:keyIcon="@drawable/downleft" />
+        <Key
+            android:codes="-5"
+            android:keyWidth="30%p"
+
+            android:isRepeatable="true"
+            android:keyEdgeFlags="right"
+            android:keyIcon="@drawable/backspace" />
+
+    </Row>
+</Keyboard>

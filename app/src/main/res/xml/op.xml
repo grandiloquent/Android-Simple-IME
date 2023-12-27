@@ -73,7 +73,6 @@
             android:keyLabel="翻译" />
 
 
-
     </Row>
     <Row>
 
@@ -101,16 +100,12 @@
 
         <Key
             android:codes="1001"
-            android:keyWidth="10%p"
             android:keyEdgeFlags="left"
             android:keyLabel="英文" />
-        <Key
-            android:codes="1000"
-            android:keyWidth="10%p"
-            android:keyLabel="符号" />
+
         <Key
             android:codes="1018"
-            android:keyLabel="数字" />
+            android:keyLabel="翻译" />
         <Key
             android:codes="32"
             android:isRepeatable="true"
