@@ -7,16 +7,25 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.graphics.PixelFormat;
 import android.net.IpConfiguration;
 import android.os.Build;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.function.Function;
@@ -27,6 +36,9 @@ import java.util.regex.Pattern;
 import static psycho.euphoria.k.Shared.getContinueLines;
 import static psycho.euphoria.k.Shared.getLine;
 import static psycho.euphoria.k.Shared.getString;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
+import static psycho.euphoria.k.Shared.getWord;
 
 public class Utils {
     public static void copyString(Context context, InputConnection inputConnection, Database database) {
@@ -128,13 +140,11 @@ public class Utils {
         if (f.length == 1) {
             f = new String[]{f[0], ""};
         }
-
         String b = Shared.substringAfter(s, "\n");
         try {
             b = b.replaceAll(f[0], f[1]);
         } catch (Exception e) {
         }
-
         inputConnection.setComposingRegion(points[0], points[1]);
         inputConnection.setComposingText(b, 1);
         inputConnection.finishComposingText();
@@ -325,7 +335,7 @@ public class Utils {
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
-        String block = currentText.subSequence(points[0], points[1]).toString();
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
         Log.e("B5aOx2", String.format("commentJavaScript, %s", block));
         if (block.startsWith("/*")) {
             block = block.substring("/*".length());
@@ -345,5 +355,89 @@ public class Utils {
         }
     }
 
+    public static void createFloatView(Context context, String s) {
+        final WindowManager.LayoutParams params;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+        } else {
+            params = new WindowManager.LayoutParams(
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.TYPE_PHONE,
+                    WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                    PixelFormat.TRANSLUCENT);
+        }
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        //获取屏幕的高度
+        DisplayMetrics dm = new DisplayMetrics();
+        windowManager.getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        //设置window type
+        //设置图片格式，效果为背景透明
+        params.format = PixelFormat.RGBA_8888;
+        //设置浮动窗口不可聚焦（实现操作除浮动窗口外的其他可见窗口的操作）
+        //调整悬浮窗显示的停靠位置为右侧侧置顶，方便实现触摸滑动
+        params.gravity = Gravity.LEFT | Gravity.TOP;
+        // 以屏幕左上角为原点，设置x、y初始值
+//        params.width = width;
+//        params.x = width / 6 / 2;
+//        params.height = height;
+//        params.y = height / 3 / 2;
+        //设置悬浮窗口长宽数据
+        LayoutInflater inflater = LayoutInflater.from(context);
+        //获取浮动窗口视图所在布局
+        View layout = inflater.inflate(R.layout.float_layout, null);
+//        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        layout.measure(w, h);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        int margin = max(width, height) / 8; //dpToPx(context, 30);
+        if (width > height)
+            layoutParams.setMargins(margin << 1, margin, margin << 1, margin);
+        else
+            layoutParams.setMargins(margin >> 1, margin << 1, margin >> 1, margin << 1);
+        layout.findViewById(R.id.layout).setLayoutParams(layoutParams);
+        //添加mFloatLayout
+        windowManager.addView(layout, params);
+        ((TextView) layout.findViewById(R.id.dst)).setText(s);
+        layout.findViewById(R.id.layout)
+                .setOnClickListener(v -> {
+                    ClipboardManager manager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                    manager.setPrimaryClip(ClipData.newPlainText(null, s));
+                    Toast.makeText(context, "已复制到剪切板", Toast.LENGTH_SHORT).show();
+                });
+        layout.setOnClickListener(v -> windowManager.removeView(layout));
+//        int w = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        int h = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+//        //设置layout大小
+//        mFloatLayout.measure(w, h);
+        //设置监听浮动窗口的触摸移动
+    }
 
+    public static void translate(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getWord(currentText.toString(), startIndex, endIndex);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        new Thread(() -> {
+            String sv = null;
+            try {
+                sv = TranslatorApi.translate(s);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            String finalS = sv;
+            Shared.postOnMainThread(() -> {
+                Utils.createFloatView(context, finalS);
+            });
+        }).start();
+    }
 }

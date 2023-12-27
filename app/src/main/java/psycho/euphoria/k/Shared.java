@@ -3,17 +3,34 @@ package psycho.euphoria.k;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.graphics.PixelFormat;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
+import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.expression.parser.Parser;
 import com.expression.parser.util.ParserResult;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -21,8 +38,11 @@ import java.util.function.Function;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 public class Shared {
+
+    private static volatile Handler sMainThreadHandler;
 
     public static List<String> collectIds(String s) {
         Pattern idPattern = Pattern.compile("(?<=id=\")[^\"]+(?=\")");
@@ -47,7 +67,7 @@ public class Shared {
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
-        String block = currentText.subSequence(points[0], points[1]).toString();
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
         if (block.startsWith("<!--")) {
             block = block.substring("<!--".length());
             if (block.endsWith("-->")) {
@@ -228,6 +248,23 @@ public class Shared {
         return new int[]{start, end};
     }
 
+    public static Handler getUiThreadHandler() {
+        if (sMainThreadHandler == null) {
+            sMainThreadHandler = new Handler(Looper.getMainLooper());
+        }
+        return sMainThreadHandler;
+    }
+
+    public static int[] getWord(String s, int start, int end) {
+        while (start - 1 > -1 && Character.isAlphabetic(s.charAt(start - 1))) {
+            start--;
+        }
+        while (end + 1 < s.length() && Character.isAlphabetic(s.charAt(end))) {
+            end++;
+        }
+        return new int[]{start, end};
+    }
+
     public static boolean isWhiteSpace(String s) {
         if (s == null || s.length() == 0) return true;
         for (int i = 0; i < s.length(); i++) {
@@ -240,6 +277,46 @@ public class Shared {
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         inputConnection.setComposingText(clipboardManager.getText(), 1);
         inputConnection.finishComposingText();
+    }
+
+    public static void postOnMainThread(Runnable runnable) {
+        getUiThreadHandler().post(runnable);
+    }
+
+    public static String readString(HttpURLConnection connection) {
+        InputStream in;
+        BufferedReader reader = null;
+        try {
+            String contentEncoding = connection.getHeaderField("Content-Encoding");
+            if (contentEncoding != null && contentEncoding.equals("gzip")) {
+                in = new GZIPInputStream(connection.getInputStream());
+            } else {
+                in = connection.getInputStream();
+            }
+            /*
+            "implementation group": "org.brotli', name: 'dec', version: '0.1.1",
+            else if (contentEncoding != null && contentEncoding.equals("br")) {
+                in = new BrotliInputStream(connection.getInputStream());
+            } */
+            //  if (contentEncoding != null && contentEncoding.equals("br")) {
+            //in = new BrotliInputStream(connection.getInputStream());
+            //  }
+            reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                sb.append(line).append("\r\n");
+            }
+            return sb.toString();
+        } catch (Exception ignored) {
+        } finally {
+            try {
+                if (reader != null)
+                    reader.close();
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
     }
 
     public static String readText(Context context) {
@@ -330,4 +407,5 @@ public class Shared {
         if (index != -1) return string.substring(0, index);
         return string;
     }
+
 }

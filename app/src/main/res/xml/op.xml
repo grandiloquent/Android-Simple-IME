@@ -68,6 +68,9 @@
             android:codes="1022"
             android:keyLabel="空行" />
 
+        <Key
+            android:codes="1032"
+            android:keyLabel="翻译" />
 
 
 

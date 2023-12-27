@@ -39,7 +39,6 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
 //    private Keyboard keyboard_num;
 
     private boolean caps = false;
-    private final Pattern mChinese = Pattern.compile("[\\u4e00-\\u9fa5]");
     private Database mDatabase;
 
     public static String readAssetAsString(Context context, String assetName) {
@@ -258,6 +257,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1031: {
                 Utils.commentJavaScript(this, ic);
+                break;
+            }
+            case 1032: {
+                Utils.translate(this, ic);
                 break;
             }
             default:
