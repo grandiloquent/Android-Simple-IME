@@ -432,7 +432,7 @@ public class Utils {
             try {
                 sv = TranslatorApi.translate(s);
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                Log.e("B5aOx2", String.format("translate, %s", e.getMessage()));
             }
             String finalS = sv;
             Shared.postOnMainThread(() -> {
