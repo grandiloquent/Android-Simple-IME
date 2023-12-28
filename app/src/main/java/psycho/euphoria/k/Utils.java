@@ -440,4 +440,29 @@ public class Utils {
             });
         }).start();
     }
+
+    public static void format(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
+        StringBuilder stringBuilder = new StringBuilder();
+        String[] array = block.split("\n");
+        for (int i = 0; i < array.length; i++) {
+            if (!array[i].trim().isEmpty())
+                stringBuilder.append(array[i].trim()).append(' ');
+        }
+        block = stringBuilder.toString().replaceAll("\\s+-\\s+", "");
+        if (VERSION.SDK_INT >= VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            inputConnection.replaceText(points[0], points[1], block,
+                    startIndex + block.length(), null);
+        } else {
+            inputConnection.setComposingRegion(points[0], points[1]);
+            inputConnection.setComposingText(block, 1);
+            inputConnection.finishComposingText();
+        }
+    }
+
 }

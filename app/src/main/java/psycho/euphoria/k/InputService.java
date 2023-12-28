@@ -35,8 +35,8 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     private Keyboard keyboard;
     private Keyboard keyboard_op;
     //
-//    private Keyboard keyboard_sym;
-//    private Keyboard keyboard_num;
+    private Keyboard keyboard_sym;
+    private Keyboard keyboard_num;
     private Keyboard keyboard_trans;
     private boolean caps = false;
     private Database mDatabase;
@@ -75,11 +75,11 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     public View onCreateInputView() {
         kv = (KeyboardView) getLayoutInflater().inflate(R.layout.keyboard, null);
         keyboard = new Keyboard(this, R.xml.qwerty);
-//        keyboard_sym = new Keyboard(this, R.xml.symbol);
-//        keyboard_num = new Keyboard(this, R.xml.num);
+        keyboard_sym = new Keyboard(this, R.xml.symbol);
+        keyboard_num = new Keyboard(this, R.xml.num);
         keyboard_trans = new Keyboard(this, R.xml.trans);
         keyboard_op = new Keyboard(this, R.xml.op);
-        kv.setKeyboard(keyboard_op);
+        kv.setKeyboard(keyboard_num);
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
@@ -262,6 +262,18 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1032: {
                 Utils.translate(this, ic);
+                break;
+            }
+            case 1033: {
+                Utils.format(this, ic);
+                break;
+            }
+            case 90001: {
+                kv.setKeyboard(keyboard_num);
+                break;
+            }
+            case 90002: {
+                kv.setKeyboard(keyboard_sym);
                 break;
             }
             default:

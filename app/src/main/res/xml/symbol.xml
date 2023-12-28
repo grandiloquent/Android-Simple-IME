@@ -5,130 +5,235 @@
     android:keyHeight="48dp"
     android:verticalGap="0px">
 
+    <!--    <Row>-->
+    <!--        <Key-->
+    <!--            android:codes="34"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="&quot;" />-->
+    <!--        <Key-->
+    <!--            android:codes="59"-->
+    <!--            android:keyLabel=";" />-->
+    <!--        <Key-->
+    <!--            android:codes="60"-->
+    <!--            android:keyLabel="&lt;" />-->
+    <!--        <Key-->
+    <!--            android:codes="62"-->
+    <!--            android:keyLabel="&gt;" />-->
+    <!--        <Key-->
+    <!--            android:codes="33"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyLabel="!" />-->
+    <!--    </Row>-->
+    <!--    <Row>-->
+    <!--        <Key-->
+
+    <!--            android:codes="35"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="#" />-->
+
+    <!--        <Key-->
+    <!--            android:codes="42"-->
+    <!--            android:keyLabel="*" />-->
+    <!--        <Key-->
+    <!--            android:codes="92"-->
+    <!--            android:keyLabel="\\" />-->
+    <!--        <Key-->
+    <!--            android:codes="63"-->
+    <!--            android:keyLabel="?" />-->
+    <!--        <Key-->
+    <!--            android:codes="36"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyLabel="$" />-->
+
+    <!--    </Row>-->
+
+    <!--    <Row>-->
+    <!--        <Key-->
+    <!--            android:codes="96"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="`" />-->
+
+    <!--        <Key-->
+    <!--            android:codes="37"-->
+    <!--            android:keyLabel="%" />-->
+    <!--        <Key-->
+    <!--            android:codes="91"-->
+    <!--            android:keyLabel="[" />-->
+    <!--        <Key-->
+    <!--            android:codes="93"-->
+    <!--            android:keyLabel="]" />-->
+    <!--        <Key-->
+    <!--            android:codes="123"-->
+    <!--            android:keyLabel="{" />-->
+    <!--        <Key-->
+    <!--            android:codes="125"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyLabel="}" />-->
+
+    <!--    </Row>-->
+
+    <!--    <Row>-->
+    <!--        <Key-->
+    <!--            android:codes="64"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="@" />-->
+    <!--        <Key-->
+    <!--            android:codes="8592"-->
+    <!--            android:keyLabel="←" />-->
+    <!--        <Key-->
+    <!--            android:codes="8593"-->
+    <!--            android:keyLabel="↑" />-->
+    <!--        <Key-->
+    <!--            android:codes="8594"-->
+    <!--            android:keyLabel="→" />-->
+    <!--        <Key-->
+    <!--            android:codes="8595"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyLabel="↓" />-->
+    <!--    </Row>-->
+    <!--    <Row>-->
+
+    <!--        <Key-->
+    <!--            android:codes="8721"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="∑" />-->
+    <!--        <Key-->
+    <!--            android:codes="960"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyLabel="π" />-->
+    <!--    </Row>-->
+
+    <!--    <Row android:rowEdgeFlags="bottom">-->
+
+    <!--        <Key-->
+    <!--            android:codes="1001"-->
+    <!--            android:keyWidth="10%p"-->
+    <!--            android:keyEdgeFlags="left"-->
+    <!--            android:keyLabel="英文" />-->
+    <!--        <Key-->
+    <!--            android:codes="1018"-->
+    <!--            android:keyWidth="10%p"-->
+    <!--            android:keyLabel="数字" />-->
+    <!--        <Key-->
+    <!--            android:codes="1017"-->
+    <!--            android:keyLabel="操作" />-->
+    <!--        <Key-->
+    <!--            android:codes="32"-->
+    <!--            android:isRepeatable="true"-->
+    <!--            android:keyLabel="空格" />-->
+    <!--        <Key-->
+    <!--            android:codes="-4"-->
+    <!--            android:keyIcon="@drawable/downleft" />-->
+    <!--        <Key-->
+    <!--            android:codes="-5"-->
+    <!--            android:isRepeatable="true"-->
+    <!--            android:keyEdgeFlags="right"-->
+    <!--            android:keyIcon="@drawable/backspace" />-->
+
+    <!--    </Row>-->
+
     <Row>
         <Key
-            android:codes="34"
-            android:keyEdgeFlags="left"
-            android:keyLabel="&quot;" />
+            android:codes="92"
+            android:keyLabel="\\" />
         <Key
-            android:codes="59"
-            android:keyLabel=";" />
+            android:codes="37"
+            android:keyLabel="%" />
+        <Key
+            android:codes="1024"
+            android:keyLabel="{}" />
+        <Key
+            android:codes="1027"
+            android:keyLabel="'" />
         <Key
             android:codes="60"
+            android:keyEdgeFlags="left"
             android:keyLabel="&lt;" />
+    </Row>
+    <Row>
         <Key
             android:codes="62"
             android:keyLabel="&gt;" />
         <Key
             android:codes="33"
-            android:keyEdgeFlags="right"
             android:keyLabel="!" />
-    </Row>
-    <Row>
-        <Key
-
-            android:codes="35"
-            android:keyEdgeFlags="left"
-            android:keyLabel="#" />
-
-        <Key
-            android:codes="42"
-            android:keyLabel="*" />
-        <Key
-            android:codes="92"
-            android:keyLabel="\\" />
         <Key
             android:codes="63"
             android:keyLabel="?" />
         <Key
-            android:codes="36"
-            android:keyEdgeFlags="right"
-            android:keyLabel="$" />
-
-    </Row>
-
-    <Row>
+            android:codes="35"
+            android:keyLabel="#" />
         <Key
-            android:codes="96"
-            android:keyEdgeFlags="left"
-            android:keyLabel="`" />
-
-        <Key
-            android:codes="37"
-            android:keyLabel="%" />
-        <Key
-            android:codes="91"
-            android:keyLabel="[" />
-        <Key
-            android:codes="93"
-            android:keyLabel="]" />
-        <Key
-            android:codes="123"
-            android:keyLabel="{" />
-        <Key
-            android:codes="125"
-            android:keyEdgeFlags="right"
-            android:keyLabel="}" />
-
-    </Row>
-
-    <Row>
-        <Key
-            android:codes="64"
-            android:keyEdgeFlags="left"
-            android:keyLabel="@" />
-        <Key
-            android:codes="8592"
-            android:keyLabel="←" />
-        <Key
-            android:codes="8593"
-            android:keyLabel="↑" />
-        <Key
-            android:codes="8594"
-            android:keyLabel="→" />
-        <Key
-            android:codes="8595"
-            android:keyEdgeFlags="right"
-            android:keyLabel="↓" />
+            android:codes="38"
+            android:keyLabel="&amp;" />
     </Row>
     <Row>
+        <Key
+            android:codes="124"
+            android:keyLabel="|" />
+        <Key
+            android:codes="94"
+            android:keyLabel="^" />
+        <Key
+            android:codes="126"
+            android:keyLabel="~" />
+        <Key
+            android:codes="44"
+            android:keyWidth="20%p"
+            android:keyLabel="," />
+        <Key
+            android:codes="59"
+            android:keyWidth="20%p"
+            android:keyLabel=";" />
 
-        <Key
-            android:codes="8721"
-            android:keyEdgeFlags="left"
-            android:keyLabel="∑" />
-        <Key
-            android:codes="960"
-            android:keyEdgeFlags="right"
-            android:keyLabel="π" />
     </Row>
+    <Row>
+        <Key
+            android:codes="1023"
+            android:keyWidth="20%p"
+            android:keyLabel="()" />
+        <Key
+            android:codes="1026"
+            android:keyEdgeFlags="left"
+            android:keyLabel="&quot;" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="1028"
+            android:keyLabel="复行" />
+        <Key
+            android:codes="1029"
+            android:keyLabel="剪行" />
+        <Key
+            android:codes="1004"
+            android:keyLabel="粘贴" />
+        <Key
+            android:codes="1021"
+            android:keyLabel="搜索" />
 
+        <Key
+            android:codes="1031"
+            android:keyWidth="20%p"
+            android:keyLabel="评注" />
+
+
+    </Row>
     <Row android:rowEdgeFlags="bottom">
-
         <Key
             android:codes="1001"
-            android:keyWidth="10%p"
-            android:keyEdgeFlags="left"
             android:keyLabel="英文" />
-        <Key
-            android:codes="1018"
-            android:keyWidth="10%p"
-            android:keyLabel="数字" />
         <Key
             android:codes="1017"
             android:keyLabel="操作" />
         <Key
-            android:codes="32"
-            android:isRepeatable="true"
-            android:keyLabel="空格" />
+            android:codes="90001"
+            android:keyLabel="数字" />
         <Key
-            android:codes="-4"
-            android:keyIcon="@drawable/downleft" />
+            android:codes="1030"
+            android:keyLabel="切换" />
         <Key
-            android:codes="-5"
-            android:isRepeatable="true"
-            android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/backspace" />
-
+            android:codes="1007"
+            android:keyWidth="20%p"
+            android:keyLabel="隐藏" />
     </Row>
 </Keyboard>

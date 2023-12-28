@@ -15,27 +15,22 @@
     <Row android:rowEdgeFlags="bottom">
         <Key
             android:codes="1001"
-            android:keyEdgeFlags="left"
-            android:keyWidth="10%p"
             android:keyLabel="英文" />
 
         <Key
             android:codes="32"
             android:isRepeatable="true"
-            android:keyWidth="30%p"
             android:keyLabel="空格" />
         <Key
             android:codes="-4"
-            android:keyWidth="30%p"
-
-            android:keyIcon="@drawable/downleft" />
+            android:keyLabel="确认" />
         <Key
             android:codes="-5"
-            android:keyWidth="30%p"
-
             android:isRepeatable="true"
-            android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/backspace" />
+            android:keyLabel="退格" />
+        <Key
+            android:codes="1033"
+            android:keyLabel="格式" />
 
     </Row>
 </Keyboard>
