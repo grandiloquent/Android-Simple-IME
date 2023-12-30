@@ -136,6 +136,10 @@
             android:codes="32"
             android:isRepeatable="true"
             android:keyLabel="空格" />
+
+        <Key
+            android:codes="1035"
+            android:keyLabel="评注" />
         <Key
             android:codes="44"
             android:keyWidth="20%p"
@@ -148,10 +152,7 @@
             android:codes="62"
             android:keyLabel="&gt;" />
 
-        <Key
-            android:codes="1018"
-            android:keyWidth="20%p"
-            android:keyLabel="翻译" />
+
     </Row>
     <Row>
         <Key
@@ -179,6 +180,15 @@
     </Row>
     <Row>
         <Key
+            android:codes="48"
+            android:keyWidth="20%p"
+            android:keyLabel="0" />
+        <Key
+            android:codes="46"
+            android:isRepeatable="true"
+            android:keyWidth="20%p"
+            android:keyLabel="." />
+        <Key
             android:codes="49"
             android:keyWidth="20%p"
             android:keyLabel="1" />
@@ -190,6 +200,10 @@
             android:codes="51"
             android:keyWidth="20%p"
             android:keyLabel="3" />
+
+
+    </Row>
+    <Row>
         <Key
             android:codes="52"
             android:keyWidth="20%p"
@@ -198,10 +212,6 @@
             android:codes="53"
             android:keyWidth="20%p"
             android:keyLabel="5" />
-
-    </Row>
-    <Row>
-
         <Key
             android:codes="54"
             android:keyWidth="20%p"
@@ -214,23 +224,15 @@
             android:codes="56"
             android:keyWidth="20%p"
             android:keyLabel="8" />
-        <Key
-            android:codes="57"
-            android:keyWidth="20%p"
-            android:keyLabel="9" />
-        <Key
-            android:codes="48"
-            android:keyWidth="20%p"
-            android:keyLabel="0" />
+
     </Row>
 
 
     <Row>
         <Key
-            android:codes="46"
-            android:isRepeatable="true"
+            android:codes="57"
             android:keyWidth="20%p"
-            android:keyLabel="." />
+            android:keyLabel="9" />
         <Key
             android:codes="43"
             android:keyWidth="20%p"
@@ -268,7 +270,8 @@
             android:keyWidth="20%p"
             android:keyLabel="隐藏" />
         <Key
-            android:codes="1035"
-            android:keyLabel="评注" />
+            android:codes="1018"
+            android:keyWidth="20%p"
+            android:keyLabel="翻译" />
     </Row>
 </Keyboard>
