@@ -147,7 +147,6 @@
             android:keyLabel="'" />
         <Key
             android:codes="60"
-            android:keyEdgeFlags="left"
             android:keyLabel="&lt;" />
     </Row>
     <Row>
@@ -194,8 +193,10 @@
             android:keyLabel="()" />
         <Key
             android:codes="1026"
-            android:keyEdgeFlags="left"
             android:keyLabel="&quot;" />
+        <Key
+            android:codes="58"
+            android:keyLabel=":" />
     </Row>
     <Row>
         <Key
@@ -217,6 +218,29 @@
             android:keyLabel="评注" />
 
 
+    </Row>
+    <Row>
+        <Key
+            android:codes="61"
+            android:keyWidth="20%p"
+            android:keyLabel="=" />
+        <Key
+            android:codes="1018"
+            android:keyWidth="20%p"
+            android:keyLabel="翻译" />
+        <Key
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyLabel="空格" />
+        <Key
+            android:codes="-4"
+            android:keyWidth="15%p"
+            android:keyEdgeFlags="right"
+            android:keyLabel="确认" />
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true"
+            android:keyLabel="退格" />
     </Row>
     <Row android:rowEdgeFlags="bottom">
         <Key

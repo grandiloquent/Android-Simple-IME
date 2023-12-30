@@ -279,7 +279,7 @@ public class Utils {
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
         int[] points = getContinueLines(currentText.toString(), startIndex, endIndex);
-        String block = currentText.subSequence(points[0], points[1]).toString();
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
         if (block.startsWith("<!--")) {
             block = block.substring("<!--".length());
             if (block.endsWith("-->")) {
@@ -298,6 +298,27 @@ public class Utils {
         }
     }
 
+    public static void commentLine(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getLine(currentText.toString(), startIndex, endIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
+        if (block.startsWith("// ")) {
+            block = block.substring("// ".length());
+        } else {
+            block = "// " + block;
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            inputConnection.replaceText(points[0], points[1], block,
+                    startIndex + block.length(), null);
+        } else {
+            inputConnection.setComposingRegion(points[0], points[1]);
+            inputConnection.setComposingText(block, 1);
+            inputConnection.finishComposingText();
+        }
+    }
     public static void copyLine(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
