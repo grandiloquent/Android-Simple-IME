@@ -81,6 +81,7 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         if (mWebView != null && mWebView.canGoBack()) {
             mWebView.goBack();
+            mWebView.reload();
             return;
         }
         super.onBackPressed();
