@@ -37,6 +37,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     //
     private Keyboard keyboard_sym;
     private Keyboard keyboard_num;
+    private Keyboard keyboard_num_op;
     private Keyboard keyboard_trans;
     private boolean caps = false;
     private Database mDatabase;
@@ -77,9 +78,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
         keyboard = new Keyboard(this, R.xml.qwerty);
         keyboard_sym = new Keyboard(this, R.xml.symbol);
         keyboard_num = new Keyboard(this, R.xml.num);
+        keyboard_num_op = new Keyboard(this, R.xml.num_op);
         keyboard_trans = new Keyboard(this, R.xml.trans);
         keyboard_op = new Keyboard(this, R.xml.op);
-        kv.setKeyboard(keyboard_num);
+        kv.setKeyboard(keyboard_num_op);
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
@@ -203,7 +205,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1018: {
-                kv.setKeyboard(keyboard_trans);
+                showDialog();
                 break;
             }
             case 1019: {
@@ -280,6 +282,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 kv.setKeyboard(keyboard_sym);
                 break;
             }
+            case 90003: {
+                kv.setKeyboard(keyboard_num_op);
+                break;
+            }
             default:
                 char code = (char) primaryCode;
                 if (Character.isLetter(code) && caps) {
@@ -288,6 +294,39 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 ic.commitText(String.valueOf(code), 1);
         }
 
+    }
+
+    private void showDialog() {
+        String[] items = new String[]{
+                "翻译",
+                "SVG",
+                "浏览"
+        };
+        AlertDialog dialog = new Builder(this)
+                .setItems(items, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String item = items[i];
+                        if (item.equals("翻译")) {
+                            kv.setKeyboard(keyboard_trans);
+                        } else if (item.equals("SVG ")) {
+                            kv.setKeyboard(keyboard_op);
+                        } else if (item.equals("浏览")) {
+                            Intent intent = new Intent(InputService.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            InputService.this.startActivity(intent);
+                        }
+
+
+                    }
+                })
+                .create();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
+        } else {
+            dialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+        }
+        dialog.show();
     }
 
     @Override

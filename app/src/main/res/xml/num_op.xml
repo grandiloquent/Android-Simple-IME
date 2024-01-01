@@ -1,0 +1,54 @@
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:horizontalGap="0px"
+    android:keyWidth="50%p"
+    android:keyHeight="48dp"
+    android:verticalGap="0px">
+    <Row>
+        <Key
+            android:codes="1019"
+            android:keyEdgeFlags="left"
+            android:keyLabel="复字" />
+        <Key
+            android:codes="1029"
+            android:keyLabel="剪行" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="1005"
+            android:keyLabel="剪切" />
+        <Key
+            android:codes="1004"
+            android:keyLabel="粘贴" />
+
+    </Row>
+    <Row>
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true"
+            android:keyLabel="退格" />
+        <Key
+            android:codes="-4"
+            android:keyLabel="确认" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyLabel="空格" />
+
+        <Key
+            android:codes="59"
+            android:keyLabel=";" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="90001"
+            android:keyLabel="数字" />
+        <Key
+            android:codes="1007"
+            android:keyLabel="隐藏" />
+    </Row>
+
+</Keyboard>

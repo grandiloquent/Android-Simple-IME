@@ -112,25 +112,7 @@
     <!--            android:keyIcon="@drawable/backspace" />-->
 
     <!--    </Row>-->
-    <Row>
-        <Key
-            android:codes="1019"
-            android:keyEdgeFlags="left"
-            android:keyLabel="复字" />
-        <Key
-            android:codes="1004"
-            android:keyLabel="粘贴" />
-        <Key
-            android:codes="1028"
-            android:keyLabel="复行" />
-        <Key
-            android:codes="1020"
-            android:keyLabel="剪字" />
-        <Key
-            android:codes="1029"
-            android:keyLabel="剪行" />
 
-    </Row>
     <Row>
         <Key
             android:codes="32"
@@ -184,11 +166,6 @@
             android:keyWidth="20%p"
             android:keyLabel="0" />
         <Key
-            android:codes="46"
-            android:isRepeatable="true"
-            android:keyWidth="20%p"
-            android:keyLabel="." />
-        <Key
             android:codes="49"
             android:keyWidth="20%p"
             android:keyLabel="1" />
@@ -201,13 +178,19 @@
             android:keyWidth="20%p"
             android:keyLabel="3" />
 
-
-    </Row>
-    <Row>
         <Key
             android:codes="52"
             android:keyWidth="20%p"
             android:keyLabel="4" />
+    </Row>
+    <Row>
+
+        <Key
+            android:codes="46"
+            android:isRepeatable="true"
+            android:keyWidth="20%p"
+            android:keyLabel="." />
+
         <Key
             android:codes="53"
             android:keyWidth="20%p"
@@ -260,7 +243,7 @@
             android:codes="1001"
             android:keyLabel="英文" />
         <Key
-            android:codes="1017"
+            android:codes="90003"
             android:keyLabel="操作" />
         <Key
             android:codes="90002"
@@ -272,6 +255,6 @@
         <Key
             android:codes="1018"
             android:keyWidth="20%p"
-            android:keyLabel="翻译" />
+            android:keyLabel="菜单" />
     </Row>
 </Keyboard>

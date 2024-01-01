@@ -4,6 +4,8 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.PixelFormat;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Handler;
@@ -29,10 +31,16 @@ import com.expression.parser.util.ParserResult;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Function;
 import java.util.regex.MatchResult;
@@ -224,6 +232,28 @@ public class Shared {
 
     }
 
+    public static String getDeviceIP(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        try {
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+            int rawIp = wifiInfo.getIpAddress();
+            if (rawIp == 0) {
+                Method method = wifiManager.getClass().getDeclaredMethod("isWifiApEnabled");
+                method.setAccessible(true);
+                boolean isWifiApEnabled = (boolean) method.invoke(wifiManager);
+                if (isWifiApEnabled)
+                    return getWifiApIpAddress();
+                else
+                    return "0.0.0.0";
+            }
+            //Log.e("B5aOx2", String.format("getDeviceIP, %s", wifiManager.getConnectionInfo().getSupplicantState().name()));
+            InetAddress inetAddress = intToInetAddress(rawIp);
+            return inetAddress.getHostAddress();
+        } catch (Exception e) {
+            return "0.0.0.0";
+        }
+    }
+
     public static int[] getLine(String s, int start, int end) {
         while (start - 1 > -1 && s.charAt(start - 1) != '\n') {
             start--;
@@ -255,6 +285,27 @@ public class Shared {
         return sMainThreadHandler;
     }
 
+    public static String getWifiApIpAddress() {
+        try {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en
+                    .hasMoreElements(); ) {
+                NetworkInterface intf = en.nextElement();
+                if (intf.getName().contains("wlan")) {
+                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr
+                            .hasMoreElements(); ) {
+                        InetAddress inetAddress = enumIpAddr.nextElement();
+                        if (!inetAddress.isLoopbackAddress()
+                                && (inetAddress.getAddress().length == 4)) {
+                            return inetAddress.getHostAddress();
+                        }
+                    }
+                }
+            }
+        } catch (SocketException ex) {
+        }
+        return null;
+    }
+
     public static int[] getWord(String s, int start, int end) {
         while (start - 1 > -1 && Character.isAlphabetic(s.charAt(start - 1))) {
             start--;
@@ -263,6 +314,18 @@ public class Shared {
             end++;
         }
         return new int[]{start, end};
+    }
+
+    public static InetAddress intToInetAddress(int hostAddress) {
+        byte[] addressBytes = {(byte) (0xff & hostAddress),
+                (byte) (0xff & (hostAddress >> 8)),
+                (byte) (0xff & (hostAddress >> 16)),
+                (byte) (0xff & (hostAddress >> 24))};
+        try {
+            return InetAddress.getByAddress(addressBytes);
+        } catch (UnknownHostException e) {
+            throw new AssertionError();
+        }
     }
 
     public static boolean isWhiteSpace(String s) {
