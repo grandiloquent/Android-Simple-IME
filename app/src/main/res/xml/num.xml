@@ -119,9 +119,7 @@
             android:isRepeatable="true"
             android:keyLabel="空格" />
 
-        <Key
-            android:codes="1035"
-            android:keyLabel="评注" />
+
         <Key
             android:codes="44"
             android:keyWidth="20%p"
