@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -76,7 +77,9 @@ public class MainActivity extends Activity {
         //getSystemService(InputService.class).switchInputMethod("psycho.euphoria.k/.InputService");
         mWebView = initializeWebView(this);
         setWebView(mWebView);
-        mWebView.loadUrl(String.format("http://%s:8500/app.html", Shared.getDeviceIP(this)));
+        String q = getIntent().getStringExtra("q");
+        if (!TextUtils.isEmpty(q))
+            mWebView.loadUrl(String.format("https://www.google.com/search?q=%q", q));
     }
 
     @Override

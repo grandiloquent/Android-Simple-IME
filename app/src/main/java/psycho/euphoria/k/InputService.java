@@ -274,6 +274,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.commentLine(this, ic);
                 break;
             }
+            case 1036: {
+                Utils.search(this, ic);
+                break;
+            }
             case 90001: {
                 kv.setKeyboard(keyboard_num);
                 break;

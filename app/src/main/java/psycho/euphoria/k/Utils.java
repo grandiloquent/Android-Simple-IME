@@ -7,6 +7,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.IpConfiguration;
 import android.os.Build;
@@ -319,6 +320,20 @@ public class Utils {
             inputConnection.finishComposingText();
         }
     }
+
+    public static void search(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getWord(currentText.toString(), startIndex, endIndex);
+        String block = currentText.subSequence(points[0], points[1]).toString().trim();
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("q",block);
+        context.startActivity(intent);
+    }
+
     public static void copyLine(Context context, InputConnection inputConnection, Database database) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
