@@ -79,7 +79,7 @@ public class MainActivity extends Activity {
         setWebView(mWebView);
         String q = getIntent().getStringExtra("q");
         if (!TextUtils.isEmpty(q))
-            mWebView.loadUrl(String.format("https://www.google.com/search?q=%q", q));
+            mWebView.loadUrl(String.format("https://www.google.com/search?q=%s", q));
     }
 
     @Override
