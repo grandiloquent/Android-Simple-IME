@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                mWebView.reload();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
