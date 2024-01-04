@@ -53,16 +53,15 @@
         <Key
             android:codes="1012"
             android:keyLabel="笔记" />
+        <Key
+            android:codes="1001"
+            android:keyLabel="英文" />
     </Row>
 
     <Row>
-        <Key
-            android:codes="1001"
-            android:keyWidth="25%p"
-            android:keyLabel="英文" />
+
         <Key
             android:codes="90001"
-            android:keyWidth="25%p"
             android:keyLabel="数字" />
         <Key
             android:codes="1007"

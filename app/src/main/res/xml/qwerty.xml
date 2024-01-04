@@ -1,10 +1,9 @@
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:horizontalGap="8dp"
-    android:keyWidth="20%p"
+    android:keyWidth="25%p"
     android:keyHeight="40dp"
     android:verticalGap="5dp">
-
 
     <Row>
         <Key
@@ -19,11 +18,11 @@
         <Key
             android:codes="100"
             android:keyLabel="d" />
+    </Row>
+    <Row>
         <Key
             android:codes="101"
             android:keyLabel="e" />
-    </Row>
-    <Row>
         <Key
             android:codes="102"
             android:keyLabel="f" />
@@ -33,20 +32,22 @@
         <Key
             android:codes="104"
             android:keyLabel="h" />
+    </Row>
+    <Row>
         <Key
             android:codes="105"
             android:keyLabel="i" />
         <Key
             android:codes="106"
             android:keyLabel="j" />
-    </Row>
-    <Row>
         <Key
             android:codes="107"
             android:keyLabel="k" />
         <Key
             android:codes="108"
             android:keyLabel="l" />
+    </Row>
+    <Row>
         <Key
             android:codes="109"
             android:keyLabel="m" />
@@ -56,11 +57,11 @@
         <Key
             android:codes="111"
             android:keyLabel="o" />
-    </Row>
-    <Row>
         <Key
             android:codes="112"
             android:keyLabel="p" />
+    </Row>
+    <Row>
         <Key
             android:codes="113"
             android:keyLabel="q" />
@@ -87,15 +88,14 @@
         <Key
             android:codes="120"
             android:keyLabel="x" />
-        <Key
-            android:codes="121"
-            android:keyLabel="y" />
     </Row>
     <Row>
         <Key
+            android:codes="121"
+            android:keyLabel="y" />
+        <Key
             android:codes="122"
             android:keyLabel="z" />
-
         <Key
             android:codes="-1"
             android:keyLabel="大写" />
@@ -103,6 +103,13 @@
             android:codes="32"
             android:isRepeatable="true"
             android:keyLabel="空格" />
+
+    </Row>
+    <Row>
+
+        <Key
+            android:codes="90003"
+            android:keyLabel="操作" />
         <Key
             android:codes="-4"
             android:keyWidth="15%p"
@@ -111,13 +118,12 @@
         <Key
             android:codes="-5"
             android:isRepeatable="true"
+            android:keyWidth="50%p"
             android:keyLabel="退格" />
     </Row>
 
     <Row android:rowEdgeFlags="bottom">
-        <Key
-            android:codes="1017"
-            android:keyLabel="操作" />
+
         <Key
             android:codes="90001"
             android:keyLabel="数字" />
@@ -125,11 +131,8 @@
             android:codes="90002"
             android:keyLabel="符号" />
         <Key
-            android:codes="1030"
-            android:keyLabel="切换" />
-        <Key
             android:codes="1007"
-            android:keyWidth="20%p"
+            android:keyWidth="50%p"
             android:keyLabel="隐藏" />
     </Row>
 </Keyboard>
