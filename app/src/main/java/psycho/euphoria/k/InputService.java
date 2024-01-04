@@ -282,6 +282,14 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.search(this, ic);
                 break;
             }
+            case 1038: {
+                Utils.cutLineAfter(this, ic);
+                break;
+            }
+            case 1039: {
+                Utils.pasteLineAfter(this, ic);
+                break;
+            }
             case 90001: {
                 kv.setKeyboard(keyboard_num);
                 break;

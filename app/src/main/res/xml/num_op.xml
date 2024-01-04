@@ -6,13 +6,25 @@
     android:verticalGap="0px">
     <Row>
         <Key
+            android:codes="1007"
+            android:keyLabel="隐藏" />
+
+        <Key
             android:codes="1029"
             android:keyLabel="剪行" />
+
+    </Row>
+    <Row>
+        <Key
+            android:codes="-5"
+            android:isRepeatable="true"
+            android:keyLabel="退格" />
         <Key
             android:codes="1020"
             android:keyLabel="剪字" />
-    </Row>
 
+
+    </Row>
     <Row>
         <Key
             android:codes="1005"
@@ -24,9 +36,8 @@
     </Row>
     <Row>
         <Key
-            android:codes="-5"
-            android:isRepeatable="true"
-            android:keyLabel="退格" />
+            android:codes="1038"
+            android:keyLabel="剪后" />
         <Key
             android:codes="-4"
             android:keyLabel="确认" />
@@ -64,8 +75,8 @@
             android:codes="90001"
             android:keyLabel="数字" />
         <Key
-            android:codes="1007"
-            android:keyLabel="隐藏" />
+            android:codes="1039"
+            android:keyLabel="粘后" />
     </Row>
 
 </Keyboard>

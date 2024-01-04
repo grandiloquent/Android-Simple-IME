@@ -115,9 +115,12 @@
 
     <Row>
         <Key
+            android:codes="1007"
+            android:keyWidth="20%p"
+            android:keyLabel="隐藏" />
+        <Key
             android:codes="32"
             android:isRepeatable="true"
-            android:keyWidth="40%p"
             android:keyLabel="空格" />
 
 
@@ -253,9 +256,6 @@
             android:codes="1018"
             android:keyWidth="20%p"
             android:keyLabel="菜单" />
-        <Key
-            android:codes="1007"
-            android:keyWidth="20%p"
-            android:keyLabel="隐藏" />
+
     </Row>
 </Keyboard>

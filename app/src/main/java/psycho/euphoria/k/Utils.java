@@ -36,6 +36,7 @@ import java.util.regex.Pattern;
 
 import static psycho.euphoria.k.Shared.getContinueLines;
 import static psycho.euphoria.k.Shared.getLine;
+import static psycho.euphoria.k.Shared.getLineAfter;
 import static psycho.euphoria.k.Shared.getString;
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -61,7 +62,7 @@ public class Utils {
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = getString(currentText.toString(), startIndex, endIndex);
+        int[] points = getWord(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
@@ -364,7 +365,39 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+    public static void cutLineAfter(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getLineAfter(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
+    public static void pasteLineAfter(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getLineAfter(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
 
+
+
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText(clipboardManager.getText(), 1);
+        inputConnection.finishComposingText();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+    }
     public static void commentJavaScript(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;

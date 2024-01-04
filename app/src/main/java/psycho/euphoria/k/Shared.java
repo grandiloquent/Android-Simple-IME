@@ -263,6 +263,12 @@ public class Shared {
         }
         return new int[]{start, end};
     }
+    public static int[] getLineAfter(String s, int start, int end) {
+        while (end + 1 < s.length() && s.charAt(end) != '\n') {
+            end++;
+        }
+        return new int[]{start, end};
+    }
 
     public static int[] getString(String s, int start, int end) {
         if (!Character.isWhitespace(s.charAt(start))) {
