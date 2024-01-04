@@ -9,9 +9,10 @@
             android:codes="1029"
             android:keyLabel="剪行" />
         <Key
-            android:codes="1035"
-            android:keyLabel="评注" />
+            android:codes="1020"
+            android:keyLabel="剪字" />
     </Row>
+
     <Row>
         <Key
             android:codes="1005"
@@ -32,18 +33,36 @@
     </Row>
     <Row>
         <Key
+            android:codes="1021"
+            android:keyLabel="搜索" />
+        <Key
+            android:codes="1035"
+            android:keyLabel="注释" />
+    </Row>
+    <Row>
+        <Key
             android:codes="32"
             android:isRepeatable="true"
             android:keyLabel="空格" />
 
         <Key
-            android:codes="59"
-            android:keyLabel=";" />
+            android:codes="1036"
+            android:keyLabel="搜索" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="1012"
+            android:keyLabel="笔记" />
     </Row>
 
     <Row>
         <Key
+            android:codes="1001"
+            android:keyWidth="25%p"
+            android:keyLabel="英文" />
+        <Key
             android:codes="90001"
+            android:keyWidth="25%p"
             android:keyLabel="数字" />
         <Key
             android:codes="1007"

@@ -117,12 +117,13 @@
         <Key
             android:codes="32"
             android:isRepeatable="true"
+            android:keyWidth="40%p"
             android:keyLabel="空格" />
 
 
         <Key
             android:codes="44"
-            android:keyWidth="20%p"
+
             android:keyLabel="," />
 
         <Key
@@ -138,19 +139,21 @@
         <Key
             android:codes="-5"
             android:isRepeatable="true"
+            android:keyWidth="40%p"
             android:keyLabel="退格" />
         <Key
             android:codes="-4"
+            android:keyWidth="40%p"
             android:keyLabel="确认" />
-        <Key
-            android:codes="1023"
-            android:keyWidth="20%p"
-            android:keyLabel="()" />
+<!--        <Key-->
+<!--            android:codes="1023"-->
+<!--            android:keyWidth="20%p"-->
+<!--            android:keyLabel="()" />-->
 
-        <Key
-            android:codes="59"
-            android:keyWidth="20%p"
-            android:keyLabel=";" />
+<!--        <Key-->
+<!--            android:codes="59"-->
+<!--            android:keyWidth="20%p"-->
+<!--            android:keyLabel=";" />-->
 
 
         <Key
@@ -247,12 +250,12 @@
             android:codes="90002"
             android:keyLabel="符号" />
         <Key
-            android:codes="1007"
-            android:keyWidth="20%p"
-            android:keyLabel="隐藏" />
-        <Key
             android:codes="1018"
             android:keyWidth="20%p"
             android:keyLabel="菜单" />
+        <Key
+            android:codes="1007"
+            android:keyWidth="20%p"
+            android:keyLabel="隐藏" />
     </Row>
 </Keyboard>

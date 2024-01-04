@@ -33,9 +33,6 @@
             android:codes="1010"
             android:keyEdgeFlags="left"
             android:keyLabel="剪切板" />
-        <Key
-            android:codes="1012"
-            android:keyLabel="笔记" />
 
 
         <Key
