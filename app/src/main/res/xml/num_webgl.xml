@@ -31,7 +31,7 @@
             android:keyLabel="评注" />
         <Key
             android:codes="1042"
-            android:keyLabel="粘贴" />
+            android:keyLabel="递减" />
     </Row>
     <Row>
 

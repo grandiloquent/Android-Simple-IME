@@ -301,7 +301,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1042: {
-                Utils.copyString(this, ic);
+                Utils.decreaseString(this, ic);
                 break;
             }
             case 90001: {
