@@ -300,6 +300,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.cutExpress(this, ic);
                 break;
             }
+            case 1042: {
+                Utils.copyString(this, ic);
+                break;
+            }
             case 90001: {
                 kv.setKeyboard(keyboard_num);
                 break;

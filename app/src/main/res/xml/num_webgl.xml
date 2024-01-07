@@ -23,6 +23,16 @@
             android:keyLabel="粘字" />
 
     </Row>
+
+    <Row>
+
+        <Key
+            android:codes="1035"
+            android:keyLabel="评注" />
+        <Key
+            android:codes="1042"
+            android:keyLabel="粘贴" />
+    </Row>
     <Row>
 
         <Key

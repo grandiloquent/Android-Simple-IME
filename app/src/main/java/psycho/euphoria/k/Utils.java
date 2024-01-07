@@ -52,10 +52,30 @@ public class Utils {
         int[] points = Shared.getWord(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
-
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
                 s
         ));
+    }
+
+    public static void decreaseString(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getWord(currentText.toString(), startIndex, endIndex);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        float f = 1.0f;
+        try {
+            f = Float.parseFloat(s);
+            f -= 0.1f;
+            if (f == 0.0f) {
+                f = 1.0f;
+            }
+        } catch (Exception ignored) {
+        }
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText(Float.toString(f), 1);
+        inputConnection.finishComposingText();
     }
 
     public static void pasteString(Context context, InputConnection inputConnection) {
@@ -86,6 +106,7 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+
     public static void cutExpress(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
@@ -101,6 +122,7 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+
     public static void formatTime(Context context, InputConnection ic) {
         ExtractedText extractedText = ic.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
