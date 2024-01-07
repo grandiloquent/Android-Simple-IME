@@ -25,12 +25,37 @@
     </Row>
     <Row>
         <Key
+            android:codes="1041"
+            android:isRepeatable="true"
+            android:keyLabel="剪刀" />
+        <Key
+            android:codes="1004"
+            android:keyLabel="粘贴" />
+    </Row>
+    <Row>
+        <Key
             android:codes="32"
             android:isRepeatable="true"
             android:keyLabel="空格" />
         <Key
             android:codes="-4"
             android:keyLabel="确认" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="1023"
+            android:keyLabel="()" />
+        <Key
+            android:codes="61"
+            android:keyLabel="=" />
+    </Row>
+    <Row>
+        <Key
+            android:codes="44"
+            android:keyLabel="," />
+        <Key
+            android:codes="59"
+            android:keyLabel=";" />
     </Row>
     <Row>
         <Key

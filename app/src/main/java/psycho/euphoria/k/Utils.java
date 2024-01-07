@@ -35,6 +35,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static psycho.euphoria.k.Shared.getContinueLines;
+import static psycho.euphoria.k.Shared.getExpress;
 import static psycho.euphoria.k.Shared.getLine;
 import static psycho.euphoria.k.Shared.getLineAfter;
 import static psycho.euphoria.k.Shared.getString;
@@ -85,7 +86,21 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
-
+    public static void cutExpress(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = getExpress(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        String s = currentText.subSequence(points[0], points[1]).toString();
+        clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
+                s
+        ));
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText("", 1);
+        inputConnection.finishComposingText();
+    }
     public static void formatTime(Context context, InputConnection ic) {
         ExtractedText extractedText = ic.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;

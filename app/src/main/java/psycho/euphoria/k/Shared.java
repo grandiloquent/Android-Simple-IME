@@ -317,7 +317,17 @@ public class Shared {
         while (start - 1 > -1 && (Character.isAlphabetic(s.charAt(start - 1)) || Character.isDigit(s.charAt(start - 1)))) {
             start--;
         }
-        while (end + 1 < s.length() && (Character.isAlphabetic(s.charAt(end))|| Character.isDigit(s.charAt(end)))) {
+        while (end + 1 < s.length() && (Character.isAlphabetic(s.charAt(end)) || Character.isDigit(s.charAt(end)))) {
+            end++;
+        }
+        return new int[]{start, end};
+    }
+
+    public static int[] getExpress(String s, int start, int end) {
+        while (start - 1 > -1 && (Character.isAlphabetic(s.charAt(start - 1)) || Character.isDigit(s.charAt(start - 1)))) {
+            start--;
+        }
+        while (end + 1 < s.length() && s.charAt(end) != ')') {
             end++;
         }
         return new int[]{start, end};
