@@ -227,7 +227,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1023: {
-                ic.commitText("()", 1);
+                ic.commitText("(0.0,0.0,0.0,1.0);", 1);
                 break;
             }
             case 1024: {

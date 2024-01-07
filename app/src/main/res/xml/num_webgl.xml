@@ -50,10 +50,11 @@
             android:keyLabel="=" />
     </Row>
     <Row>
-
         <Key
-            android:codes="59"
-            android:keyLabel=";" />
+            android:codes="1006"
+            android:keyEdgeFlags="left"
+            android:keyLabel="计算" />
+
 
         <Key
             android:codes="90001"
