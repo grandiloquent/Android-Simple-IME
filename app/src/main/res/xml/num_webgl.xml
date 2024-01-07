@@ -24,22 +24,22 @@
 
     </Row>
     <Row>
+
         <Key
-            android:codes="1041"
+            android:codes="32"
             android:isRepeatable="true"
-            android:keyLabel="剪刀" />
+            android:keyLabel="空格" />
         <Key
             android:codes="1004"
             android:keyLabel="粘贴" />
     </Row>
     <Row>
         <Key
-            android:codes="32"
-            android:isRepeatable="true"
-            android:keyLabel="空格" />
-        <Key
             android:codes="-4"
             android:keyLabel="确认" />
+        <Key
+            android:codes="44"
+            android:keyLabel="," />
     </Row>
     <Row>
         <Key
@@ -50,19 +50,14 @@
             android:keyLabel="=" />
     </Row>
     <Row>
-        <Key
-            android:codes="44"
-            android:keyLabel="," />
+
         <Key
             android:codes="59"
             android:keyLabel=";" />
-    </Row>
-    <Row>
-        <Key
-            android:codes="1001"
-            android:keyLabel="英文" />
+
         <Key
             android:codes="90001"
             android:keyLabel="数字" />
     </Row>
+
 </Keyboard>

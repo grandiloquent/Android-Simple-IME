@@ -327,8 +327,12 @@ public class Shared {
         while (start - 1 > -1 && (Character.isAlphabetic(s.charAt(start - 1)) || Character.isDigit(s.charAt(start - 1)))) {
             start--;
         }
-        while (end + 1 < s.length() && s.charAt(end) != ')') {
+        while (end + 1 < s.length()) {
             end++;
+            if (s.charAt(end) == ')') {
+                end++;
+                break;
+            }
         }
         return new int[]{start, end};
     }
