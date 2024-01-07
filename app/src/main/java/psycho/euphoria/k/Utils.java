@@ -71,6 +71,8 @@ public class Utils {
             if (f == 0.0f) {
                 f = 1.0f;
             }
+            int scale = (int) Math.pow(10, 1);
+            f = (float) Math.round(f * scale) / scale;
         } catch (Exception ignored) {
         }
         inputConnection.setComposingRegion(points[0], points[1]);
