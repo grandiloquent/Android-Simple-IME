@@ -263,6 +263,7 @@ public class Shared {
         }
         return new int[]{start, end};
     }
+
     public static int[] getLineAfter(String s, int start, int end) {
         while (end + 1 < s.length() && s.charAt(end) != '\n') {
             end++;
@@ -313,10 +314,10 @@ public class Shared {
     }
 
     public static int[] getWord(String s, int start, int end) {
-        while (start - 1 > -1 && Character.isAlphabetic(s.charAt(start - 1))) {
+        while (start - 1 > -1 && (Character.isAlphabetic(s.charAt(start - 1)) || Character.isDigit(s.charAt(start - 1)))) {
             start--;
         }
-        while (end + 1 < s.length() && Character.isAlphabetic(s.charAt(end))) {
+        while (end + 1 < s.length() && (Character.isAlphabetic(s.charAt(end))|| Character.isDigit(s.charAt(end)))) {
             end++;
         }
         return new int[]{start, end};

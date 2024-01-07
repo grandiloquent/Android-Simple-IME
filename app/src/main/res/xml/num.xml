@@ -250,11 +250,13 @@
             android:codes="90003"
             android:keyLabel="操作" />
         <Key
+            android:codes="90004"
+            android:keyLabel="操作" />
+        <Key
             android:codes="90002"
             android:keyLabel="符号" />
         <Key
             android:codes="1018"
-            android:keyWidth="20%p"
             android:keyLabel="菜单" />
 
     </Row>

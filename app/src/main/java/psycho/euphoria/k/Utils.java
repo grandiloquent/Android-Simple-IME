@@ -43,18 +43,30 @@ import static java.lang.Math.min;
 import static psycho.euphoria.k.Shared.getWord;
 
 public class Utils {
-    public static void copyString(Context context, InputConnection inputConnection, Database database) {
+    public static void copyString(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = Shared.getString(currentText.toString(), startIndex, endIndex);
+        int[] points = Shared.getWord(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
+
         clipboardManager.setPrimaryClip(ClipData.newPlainText(null,
                 s
         ));
-        database.insert(s);
+    }
+
+    public static void pasteString(Context context, InputConnection inputConnection) {
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        CharSequence currentText = extractedText.text;
+        int startIndex = extractedText.startOffset + extractedText.selectionStart;
+        int endIndex = extractedText.startOffset + extractedText.selectionEnd;
+        int[] points = Shared.getWord(currentText.toString(), startIndex, endIndex);
+        ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+        inputConnection.setComposingRegion(points[0], points[1]);
+        inputConnection.setComposingText(clipboardManager.getText(), 1);
+        inputConnection.finishComposingText();
     }
 
     public static void cutString(Context context, InputConnection inputConnection, Database database) {
@@ -331,7 +343,7 @@ public class Utils {
         String block = currentText.subSequence(points[0], points[1]).toString().trim();
         Intent intent = new Intent(context, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra("q",block);
+        intent.putExtra("q", block);
         context.startActivity(intent);
     }
 
@@ -365,6 +377,7 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+
     public static void cutLineAfter(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
@@ -380,6 +393,7 @@ public class Utils {
         inputConnection.setComposingText("", 1);
         inputConnection.finishComposingText();
     }
+
     public static void pasteLineAfter(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
@@ -388,9 +402,6 @@ public class Utils {
         int[] points = getLineAfter(currentText.toString(), startIndex, endIndex);
         ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
         String s = currentText.subSequence(points[0], points[1]).toString();
-
-
-
         inputConnection.setComposingRegion(points[0], points[1]);
         inputConnection.setComposingText(clipboardManager.getText(), 1);
         inputConnection.finishComposingText();
@@ -398,6 +409,7 @@ public class Utils {
                 s
         ));
     }
+
     public static void commentJavaScript(Context context, InputConnection inputConnection) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;

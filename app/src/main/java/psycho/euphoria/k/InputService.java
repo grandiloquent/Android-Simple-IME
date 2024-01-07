@@ -38,6 +38,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
     private Keyboard keyboard_sym;
     private Keyboard keyboard_num;
     private Keyboard keyboard_num_op;
+    private Keyboard keyboard_num_webgl;
     private Keyboard keyboard_trans;
     private boolean caps = false;
     private Database mDatabase;
@@ -79,9 +80,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
         keyboard_sym = new Keyboard(this, R.xml.symbol);
         keyboard_num = new Keyboard(this, R.xml.num);
         keyboard_num_op = new Keyboard(this, R.xml.num_op);
+        keyboard_num_webgl = new Keyboard(this, R.xml.num_webgl);
         keyboard_trans = new Keyboard(this, R.xml.trans);
         keyboard_op = new Keyboard(this, R.xml.op);
-        kv.setKeyboard(keyboard_num_op);
+        kv.setKeyboard(keyboard_num_webgl);
         kv.setOnKeyboardActionListener(this);
         return kv;
     }
@@ -209,7 +211,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1019: {
-                Utils.copyString(this, ic, mDatabase);
+                Utils.copyString(this, ic);
                 break;
             }
             case 1020: {
@@ -290,6 +292,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.pasteLineAfter(this, ic);
                 break;
             }
+            case 1040: {
+                Utils.pasteString(this, ic);
+                break;
+            }
             case 90001: {
                 kv.setKeyboard(keyboard_num);
                 break;
@@ -300,6 +306,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 90003: {
                 kv.setKeyboard(keyboard_num_op);
+                break;
+            }
+            case 90004: {
+                kv.setKeyboard(keyboard_num_webgl);
                 break;
             }
             default:
