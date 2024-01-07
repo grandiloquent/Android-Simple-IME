@@ -10,8 +10,8 @@
             android:keyLabel="隐藏" />
 
         <Key
-            android:codes="1019"
-            android:keyLabel="复字" />
+            android:codes="1040"
+            android:keyLabel="粘字" />
     </Row>
     <Row>
         <Key
@@ -19,20 +19,11 @@
             android:isRepeatable="true"
             android:keyLabel="退格" />
         <Key
-            android:codes="1040"
-            android:keyLabel="粘字" />
-
-    </Row>
-
-    <Row>
-
-        <Key
             android:codes="1035"
             android:keyLabel="评注" />
-        <Key
-            android:codes="1042"
-            android:keyLabel="递减" />
     </Row>
+
+
     <Row>
 
         <Key
