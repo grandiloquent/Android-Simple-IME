@@ -10,52 +10,25 @@
             android:keyLabel="隐藏" />
 
         <Key
-            android:codes="1040"
-            android:keyLabel="粘字" />
+            android:codes="1019"
+            android:keyLabel="复字" />
     </Row>
     <Row>
-        <Key
-            android:codes="-5"
-            android:isRepeatable="true"
-            android:keyLabel="退格" />
+
         <Key
             android:codes="1035"
             android:keyLabel="评注" />
+        <Key
+            android:codes="1040"
+            android:keyLabel="粘字" />
+
     </Row>
 
 
     <Row>
-
-        <Key
-            android:codes="32"
-            android:isRepeatable="true"
-            android:keyLabel="空格" />
         <Key
             android:codes="1004"
             android:keyLabel="粘贴" />
-    </Row>
-    <Row>
-        <Key
-            android:codes="-4"
-            android:keyLabel="确认" />
-        <Key
-            android:codes="44"
-            android:keyLabel="," />
-    </Row>
-    <Row>
-        <Key
-            android:codes="1023"
-            android:keyLabel="()" />
-        <Key
-            android:codes="61"
-            android:keyLabel="=" />
-    </Row>
-    <Row>
-        <Key
-            android:codes="1006"
-            android:keyEdgeFlags="left"
-            android:keyLabel="计算" />
-
 
         <Key
             android:codes="90001"

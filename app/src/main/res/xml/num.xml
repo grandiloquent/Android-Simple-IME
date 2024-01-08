@@ -146,7 +146,6 @@
             android:keyLabel="退格" />
         <Key
             android:codes="-4"
-            android:keyWidth="40%p"
             android:keyLabel="确认" />
 <!--        <Key-->
 <!--            android:codes="1023"-->
@@ -158,11 +157,13 @@
 <!--            android:keyWidth="20%p"-->
 <!--            android:keyLabel=";" />-->
 
-
+        <Key
+            android:codes="1006"
+            android:keyLabel="计算" />
         <Key
             android:codes="61"
-            android:keyWidth="20%p"
             android:keyLabel="=" />
+
     </Row>
     <Row>
         <Key
@@ -218,26 +219,21 @@
     <Row>
         <Key
             android:codes="57"
-            android:keyWidth="20%p"
             android:keyLabel="9" />
         <Key
             android:codes="43"
-            android:keyWidth="20%p"
             android:keyLabel="+" />
         <Key
             android:codes="45"
-            android:keyWidth="20%p"
             android:keyLabel="-" />
 
         <Key
             android:codes="42"
-            android:keyWidth="20%p"
             android:keyLabel="*" />
 
         <Key
             android:codes="47"
             android:keyLabel="/" />
-
 
     </Row>
 
