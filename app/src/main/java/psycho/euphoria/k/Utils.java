@@ -352,7 +352,8 @@ public class Utils {
     }
 
     public static void commentLine(Context context, InputConnection inputConnection) {
-        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
+        ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), InputConnection.GET_EXTRACTED_TEXT_MONITOR);
+        if (extractedText == null) return;
         CharSequence currentText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0).text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;

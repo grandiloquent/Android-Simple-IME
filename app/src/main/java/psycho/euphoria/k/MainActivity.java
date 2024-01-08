@@ -77,11 +77,11 @@ public class MainActivity extends Activity {
         //getSystemService(InputService.class).switchInputMethod("psycho.euphoria.k/.InputService");
         mWebView = initializeWebView(this);
         setWebView(mWebView);
-        String q = getIntent().getStringExtra("q");
-        if (!TextUtils.isEmpty(q))
-            mWebView.loadUrl(String.format("https://www.google.com/search?q=%s", q));
-        else
-            mWebView.loadUrl(String.format("http://%s:8500/app.html", Shared.getDeviceIP(this)));
+//        String q = getIntent().getStringExtra("q");
+//        if (!TextUtils.isEmpty(q))
+//            mWebView.loadUrl(String.format("https://www.google.com/search?q=%s", q));
+//        else
+//            mWebView.loadUrl(String.format("http://%s:8500/app.html", Shared.getDeviceIP(this)));
     }
 
     @Override
@@ -99,6 +99,9 @@ public class MainActivity extends Activity {
             case 0:
                 mWebView.reload();
                 break;
+            case 1:
+                mWebView.loadUrl(String.format("http://%s:8500/app.html", Shared.getDeviceIP(this)));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -106,6 +109,8 @@ public class MainActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuItem item = menu.add(0, 0, 0, "刷新");
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        item = menu.add(0, 1, 0, "主页");
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return super.onCreateOptionsMenu(menu);
     }
