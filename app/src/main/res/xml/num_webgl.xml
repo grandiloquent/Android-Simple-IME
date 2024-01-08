@@ -23,7 +23,16 @@
             android:keyLabel="粘字" />
 
     </Row>
+    <Row>
 
+        <Key
+            android:codes="1029"
+            android:keyLabel="剪行" />
+        <Key
+            android:codes="1042"
+            android:keyLabel="递减" />
+
+    </Row>
 
     <Row>
         <Key
