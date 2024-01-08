@@ -80,6 +80,8 @@ public class MainActivity extends Activity {
         String q = getIntent().getStringExtra("q");
         if (!TextUtils.isEmpty(q))
             mWebView.loadUrl(String.format("https://www.google.com/search?q=%s", q));
+        else
+            mWebView.loadUrl(String.format("http://%s:8500/app.html", Shared.getDeviceIP(this)));
     }
 
     @Override
@@ -95,7 +97,7 @@ public class MainActivity extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 0:
-                finish();
+                mWebView.reload();
                 break;
         }
         return super.onOptionsItemSelected(item);

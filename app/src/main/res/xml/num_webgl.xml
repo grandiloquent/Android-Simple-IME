@@ -29,16 +29,17 @@
             android:codes="1029"
             android:keyLabel="剪行" />
         <Key
-            android:codes="1042"
-            android:keyLabel="递减" />
+            android:codes="1004"
+            android:keyLabel="粘贴" />
+
 
     </Row>
 
     <Row>
-        <Key
-            android:codes="1004"
-            android:keyLabel="粘贴" />
 
+        <Key
+            android:codes="1042"
+            android:keyLabel="递减" />
         <Key
             android:codes="90001"
             android:keyLabel="数字" />
