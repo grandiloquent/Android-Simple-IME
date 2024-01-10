@@ -123,8 +123,8 @@
             android:isRepeatable="true"
             android:keyLabel="." />
         <Key
-            android:codes="1023"
-            android:keyLabel="()" />
+            android:codes="90001"
+            android:keyLabel="数字" />
         <Key
             android:codes="32"
             android:isRepeatable="true"
@@ -136,16 +136,5 @@
 
     </Row>
 
-    <Row android:rowEdgeFlags="bottom">
-        <Key
-            android:codes="90003"
-            android:keyLabel="操作" />
-        <Key
-            android:codes="90001"
-            android:keyLabel="数字" />
-        <Key
-            android:codes="90002"
-            android:keyLabel="符号" />
 
-    </Row>
 </Keyboard>
