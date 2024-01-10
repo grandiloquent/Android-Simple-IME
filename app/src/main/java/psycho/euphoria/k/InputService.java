@@ -304,6 +304,14 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 Utils.decreaseString(this, ic);
                 break;
             }
+            case 1043: {
+                ic.commitText("0.0", 1);
+                break;
+            }
+            case 1044: {
+                ic.commitText(" /* */ ", 1);
+                break;
+            }
             case 90001: {
                 kv.setKeyboard(keyboard_num);
                 break;

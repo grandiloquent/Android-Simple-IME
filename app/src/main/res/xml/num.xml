@@ -236,15 +236,32 @@
             android:keyLabel="/" />
 
     </Row>
+    <Row>
+        <Key
+            android:codes="40"
+            android:keyLabel="(" />
+        <Key
+            android:codes="41"
+            android:keyLabel=")" />
+        <Key
+            android:codes="59"
+            android:keyLabel="*" />
+
+        <Key
+            android:codes="1043"
+            android:keyLabel="0.0" />
+
+        <Key
+            android:codes="1044"
+            android:keyLabel="/*" />
+
+    </Row>
 
 
     <Row android:rowEdgeFlags="bottom">
         <Key
             android:codes="1001"
             android:keyLabel="英文" />
-        <Key
-            android:codes="90003"
-            android:keyLabel="操作" />
         <Key
             android:codes="90004"
             android:keyLabel="操作" />
@@ -256,4 +273,5 @@
             android:keyLabel="菜单" />
 
     </Row>
+
 </Keyboard>
