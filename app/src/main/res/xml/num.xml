@@ -245,7 +245,7 @@
             android:keyLabel=")" />
         <Key
             android:codes="59"
-            android:keyLabel="*" />
+            android:keyLabel=";" />
 
         <Key
             android:codes="1043"
@@ -259,6 +259,10 @@
 
 
     <Row android:rowEdgeFlags="bottom">
+
+        <Key
+            android:codes="1042"
+            android:keyLabel="递减" />
         <Key
             android:codes="1001"
             android:keyLabel="英文" />

@@ -36,10 +36,10 @@
     </Row>
 
     <Row>
-
         <Key
-            android:codes="1042"
-            android:keyLabel="递减" />
+            android:codes="-4"
+            android:keyEdgeFlags="right"
+            android:keyLabel="确认" />
         <Key
             android:codes="90001"
             android:keyLabel="数字" />
