@@ -57,17 +57,20 @@ public class Utils {
         ));
     }
 
-    public static void decreaseString(Context context, InputConnection inputConnection) {
+    public static void decreaseString(Context context, InputConnection inputConnection, boolean is) {
         ExtractedText extractedText = inputConnection.getExtractedText(new ExtractedTextRequest(), 0);
         CharSequence currentText = extractedText.text;
         int startIndex = extractedText.startOffset + extractedText.selectionStart;
         int endIndex = extractedText.startOffset + extractedText.selectionEnd;
-        int[] points = Shared.getWord(currentText.toString(), startIndex, endIndex);
+        int[] points = Shared.getNumber(currentText.toString(), startIndex, endIndex);
         String s = currentText.subSequence(points[0], points[1]).toString();
         float f = 1.0f;
         try {
             f = Float.parseFloat(s);
-            f -= 0.1f;
+            if (is)
+                f /= 2.0f;
+            else
+                f *= 2.0f;
             if (f == 0.0f) {
                 f = 1.0f;
             }

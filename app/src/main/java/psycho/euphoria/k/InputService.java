@@ -301,7 +301,7 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
                 break;
             }
             case 1042: {
-                Utils.decreaseString(this, ic);
+                Utils.decreaseString(this, ic,true);
                 break;
             }
             case 1043: {
@@ -310,6 +310,10 @@ public class InputService extends InputMethodService implements KeyboardView.OnK
             }
             case 1044: {
                 ic.commitText(" /* */ ", 1);
+                break;
+            }
+            case 1045: {
+                Utils.decreaseString(this, ic,false);
                 break;
             }
             case 90001: {

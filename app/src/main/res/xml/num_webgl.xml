@@ -16,11 +16,12 @@
     <Row>
 
         <Key
-            android:codes="1035"
-            android:keyLabel="评注" />
+            android:codes="-5"
+            android:keyLabel="退格" />
         <Key
-            android:codes="1040"
-            android:keyLabel="粘字" />
+            android:codes="32"
+            android:isRepeatable="true"
+            android:keyLabel="空格" />
 
     </Row>
     <Row>
@@ -33,6 +34,25 @@
             android:keyLabel="粘贴" />
 
 
+    </Row>
+    <Row>
+        <Key
+            android:codes="1042"
+            android:keyLabel="递减" />
+        <Key
+            android:codes="1045"
+            android:keyLabel="递增" />
+
+    </Row>
+    <Row>
+
+        <Key
+            android:codes="1040"
+            android:keyLabel="粘字" />
+
+        <Key
+            android:codes="1035"
+            android:keyLabel="评注" />
     </Row>
 
     <Row>

@@ -324,6 +324,19 @@ public class Shared {
         return new int[]{start, end};
     }
 
+    public static int[] getNumber(String s, int start, int end) {
+        //  || s.charAt(start - 1) == '.'
+        while (start - 1 > -1 && ( Character.isDigit(s.charAt(start - 1)) || s.charAt(start - 1) == '.')) {
+            start--;
+        }
+        while (end + 1 < s.length() && ( Character.isDigit(s.charAt(end)) || s.charAt(start - 1) == '.')) {
+            end++;
+        }
+        return new int[]{start, end};
+    }
+
+
+
     public static int[] getExpress(String s, int start, int end) {
         while (start - 1 > -1 && (Character.isAlphabetic(s.charAt(start - 1)) || Character.isDigit(s.charAt(start - 1)))) {
             start--;
