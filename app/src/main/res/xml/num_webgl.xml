@@ -36,15 +36,6 @@
 
     </Row>
     <Row>
-        <Key
-            android:codes="1042"
-            android:keyLabel="递减" />
-        <Key
-            android:codes="1045"
-            android:keyLabel="递增" />
-
-    </Row>
-    <Row>
 
         <Key
             android:codes="1040"
